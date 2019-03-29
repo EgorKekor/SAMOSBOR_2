@@ -1,0 +1,3 @@
+/home/stepan/progs/tech/c++/test/CMakeFiles/rebuild_cache.dir
+/home/stepan/progs/tech/c++/test/CMakeFiles/server.dir
+/home/stepan/progs/tech/c++/test/CMakeFiles/edit_cache.dir
