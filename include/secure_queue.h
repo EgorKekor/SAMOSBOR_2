@@ -9,7 +9,7 @@ class secure_queue {
     bool empty();
     void pop();
     const T& front();
-    void push(const T &);
+    void push(const T&);
     void lock();
     void unlock();
  private:

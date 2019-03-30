@@ -24,7 +24,7 @@ const T& secure_queue<T>::front() {
 }
 
 template <typename T>
-void secure_queue<T>::push(const T & input) {
+void secure_queue<T>::push(const T& input) {
     mut.lock();
     que.push(input);
     mut.unlock();

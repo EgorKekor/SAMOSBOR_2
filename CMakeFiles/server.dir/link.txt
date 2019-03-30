@@ -1,1 +1,0 @@
-/usr/bin/c++   -pthread  -rdynamic CMakeFiles/server.dir/src/server.cpp.o CMakeFiles/server.dir/src/secure_queue.cpp.o CMakeFiles/server.dir/src/connection.cpp.o  -o server 

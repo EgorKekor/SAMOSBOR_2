@@ -50,7 +50,7 @@ class server {
     friend void * find_client(void *);
     friend void * distribution(void *);
     std::mutex connects_mutex;
-    std::map<int, connection> connects;
+    std::map<int, connection *> connects;
 };
 
 void server::push(message msg) {
@@ -91,7 +91,9 @@ void * find_client(void * arg) {
         new_sock_fd = accept(srv->in_sock_fd, (struct sockaddr*)&new_client_address, &sock_size);
         fcntl(new_sock_fd, F_SETFL, O_NONBLOCK);
         srv->connects_mutex.lock();
-        srv->connects.insert(std::make_pair(int(new_sock_fd), connection(new_sock_fd, current_new_id)));
+        connection *conn = new connection(new_sock_fd, current_new_id);
+        auto p = std::pair<int, connection*>(1, conn);
+        srv->connects.insert(p);
         srv->connects_mutex.unlock();
         current_new_id++;
     }
@@ -101,20 +103,20 @@ void * distribution(void * arg) {
     server * srv = static_cast<server*>(arg);
     while(1) {
         srv->connects_mutex.lock();
-        for(std::map<int, connection>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
-            while (srv->connects[i->first].empty() == false) {
-                srv->to_server.push(srv->connects[i->first].get_message());
+        for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
+            while (i->second->empty() == false) {
+                srv->to_server.push(i->second->get_message());
             }
         }
         srv->connects_mutex.unlock();
         while(srv->to_clients.empty() == false) {
             message mes = srv->to_clients.front();
             if (mes.id = MULTICAST_ID) {
-                for(std::map<int, connection>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
-                    i->second.push(mes);
+                for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
+                    i->second->push(mes);
                 }
             } else {
-                srv->connects[mes.id].push(mes);
+                srv->connects[mes.id]->push(mes);
             }
         }
     }
@@ -131,6 +133,7 @@ server::server() {
     pthread_create(&new_client_listen, NULL, find_client, static_cast<void*>(this));
     pthread_create(&distributor, NULL, distribution, static_cast<void*>(this));
 }
+
 int main() {
     server a();
     sleep(100);
