@@ -8,4 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread")
 
 
-add_executable(server src/server.cpp src/secure_queue.cpp src/connection.cpp) 
+add_executable(server  src/main_server.cpp include/server.h include/connection.h include/message.h include/secure_queue.h src/server.cpp src/connection.cpp ) 
+
+add_executable(client  src/client.cpp include/connection.h include/message.h include/secure_queue.h src/connection.cpp ) 

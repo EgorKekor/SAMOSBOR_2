@@ -1,4 +1,5 @@
-#include <connection.h>
+#include "connection.h"
+#include "secure_queue.h"
 
 void * service(void * arg) {
     connection * con = static_cast<connection *>(arg);
@@ -14,7 +15,7 @@ void * service(void * arg) {
                 std::cerr << "error input on socket " << con->sock_fd << " on client with id " << con->id << std::endl;
             }
             buff[lenght] = '\0';
-            con->in.push(message(con->id, strlen(buff)));
+            con->in.push(message(con->id, std::string(buff)));
         }
     }   
 }

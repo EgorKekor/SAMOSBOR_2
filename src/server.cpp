@@ -1,57 +1,9 @@
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <map>
-#include <utility>
-
-
-#include <secure_queue.h>
-#include <message.h>
-#include <connection.h>
-
-#define PORT	1100
-#define MAX_CLIENTS_QUEUE 5
-#define MAX_LEN_INPUT_STR 8192
-#define CONNECT -1
-#define MIN_ID 1 // must be bigger then MULTICAST_ID
-#define MULTICAST_ID 0
-
-
-
-class server {
- public:
-    server();
-    ~server(){;};
-    void lock_to_cli();
-    void unlock_to_cli();
-    void lock_to_serv();
-    void unlock_to_serv();
-    void push(message);
-    void pop();
-    message front();
- private:
-    int in_sock_fd;
-    struct sockaddr_in my_address;
-    secure_queue<message> to_clients;
-    secure_queue<message> to_server;
-    pthread_t distributor;
-    pthread_t new_client_listen;
-
-
-    friend void * find_client(void *);
-    friend void * distribution(void *);
-    std::mutex connects_mutex;
-    std::map<int, connection *> connects;
-};
+#include "server.h"
+server::~server() {
+    for(std::map<int, connection*>::iterator i = connects.begin(); i != connects.end(); i++) {
+        delete i->second;
+    }
+}
 
 void server::push(message msg) {
     to_clients.push(msg);
@@ -111,7 +63,7 @@ void * distribution(void * arg) {
         srv->connects_mutex.unlock();
         while(srv->to_clients.empty() == false) {
             message mes = srv->to_clients.front();
-            if (mes.id = MULTICAST_ID) {
+            if (mes.get_id() == MULTICAST_ID) {
                 for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
                     i->second->push(mes);
                 }
@@ -134,7 +86,3 @@ server::server() {
     pthread_create(&distributor, NULL, distribution, static_cast<void*>(this));
 }
 
-int main() {
-    server a();
-    sleep(100);
-}
