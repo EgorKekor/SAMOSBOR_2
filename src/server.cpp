@@ -9,6 +9,10 @@ void server::push(message msg) {
     to_clients.push(msg);
 }
 
+bool server::empty() {
+    return to_server.empty();
+}
+
 void server::pop() {
     return to_server.pop();
 }
@@ -41,7 +45,6 @@ void * find_client(void * arg) {
     while(1) {
         socklen_t sock_size = sizeof(new_client_address);
         new_sock_fd = accept(srv->in_sock_fd, (struct sockaddr*)&new_client_address, &sock_size);
-        fcntl(new_sock_fd, F_SETFL, O_NONBLOCK);
         srv->connects_mutex.lock();
         connection *conn = new connection(new_sock_fd, current_new_id);
         auto p = std::pair<int, connection*>(1, conn);
@@ -57,7 +60,8 @@ void * distribution(void * arg) {
         srv->connects_mutex.lock();
         for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
-                srv->to_server.push(i->second->get_message());
+//                std::cout << i->second->get_message().get_str().c_str() << std::endl;
+             //   srv->to_server.push(i->second->get_message());
             }
         }
         srv->connects_mutex.unlock();
@@ -68,14 +72,14 @@ void * distribution(void * arg) {
                     i->second->push(mes);
                 }
             } else {
-                srv->connects[mes.id]->push(mes);
+                srv->connects[mes.get_id()]->push(mes);
             }
         }
     }
 }
 
 server::server() {
-    in_sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+    in_sock_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     memset(&my_address, 0, sizeof(my_address));
     my_address.sin_family = AF_INET;
     my_address.sin_addr.s_addr = htonl(INADDR_ANY);

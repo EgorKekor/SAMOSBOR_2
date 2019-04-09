@@ -2,6 +2,14 @@
 
 int main() {
     server a;
-    a.lock_to_serv();
-    sleep(100);
+    while (1) {
+        if (a.empty() == false) {
+            std::cout << "main" << std::endl;
+            std::cout << a.front().get_str();
+            a.push(a.front());
+            a.pop();
+        }
+
+
+    }
 }

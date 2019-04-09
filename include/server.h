@@ -21,10 +21,8 @@
 
 #define PORT	1100
 #define MAX_CLIENTS_QUEUE 5
-#define MAX_LEN_INPUT_STR 8192
 #define CONNECT -1
 #define MIN_ID 1 // must be bigger then MULTICAST_ID
-#define MULTICAST_ID 0
 
 
 
@@ -39,6 +37,7 @@ class server {
     void push(message);
     void pop();
     message front();
+    bool empty();
  private:
     int in_sock_fd;
     struct sockaddr_in my_address;

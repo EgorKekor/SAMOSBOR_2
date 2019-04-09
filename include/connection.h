@@ -14,7 +14,7 @@
 #include <secure_queue.h>
 #include <message.h>
 
-#define MAX_LEN_INPUT_STR 8192
+#define MAX_LEN_INPUT_STR 32
 #define MULTICAST_ID 0
 
 class connection {

@@ -18,7 +18,7 @@
 #include "connection.h"
 
 
-#define PORT 1101
+#define PORT 1100
 
 class client {
  public:
@@ -43,19 +43,28 @@ void * working(void * arg) {
         while(cli->server_connection->empty() == false) {
             std::cout << cli->server_connection->get_message().get_str();
         }
-        cli->server_connection->push(message(1, std::string("i am client\n")));
+        cli->server_connection->push(message(1, std::string("giamclient\n")));
+        std::cout << "work\n";
         sleep(1);
     }
 }
 
 client::client() {
-    sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+    sock_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (sock_fd == -1) {
+        std::cerr << "can`t cteate socket" << std::endl;
+    }
     memset(&my_address, 0, sizeof(my_address));
     my_address.sin_family = AF_INET;
-    my_address.sin_addr.s_addr = htonl(INADDR_ANY);
     my_address.sin_port = htons(PORT);
-    connect(sock_fd, (struct sockaddr *)&my_address, sizeof(my_address));
-
+    int res = inet_pton(AF_INET, "127.0.0.1", &my_address.sin_addr);
+    if (res <= 0) {
+        std::cerr << "error of ip:" << res << std::endl;
+    }
+    res = connect(sock_fd, (struct sockaddr *)&my_address, sizeof(my_address));
+    if (res == -1) {
+        std::cerr << "connection error" << std::endl;
+    }
 
     server_connection = new connection(sock_fd, 0);
     pthread_create(&worker, NULL, working, static_cast<void*>(this));

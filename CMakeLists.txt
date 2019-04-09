@@ -5,7 +5,7 @@ project(game)
 include_directories(include)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -g")
 
 
 add_executable(server  src/main_server.cpp include/server.h include/connection.h include/message.h include/secure_queue.h src/server.cpp src/connection.cpp ) 
