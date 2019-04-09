@@ -28,9 +28,10 @@ class connection {
     const bool operator < (const connection &);
     const bool operator > (const connection &);
     const bool operator == (const connection &);
-    int id;
+    int get_id() const;
    
  private:
+    int id;
     friend void * service(void * arg);
     secure_queue<message> in;
     secure_queue<message> out; 

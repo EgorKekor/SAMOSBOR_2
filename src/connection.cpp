@@ -6,19 +6,21 @@ void * service(void * arg) {
     char buff[MAX_LEN_INPUT_STR];
     int lenght = 0;
     while(1) {
+        std::cout << con->get_id() << std::endl;
         while (con->out.empty() == false) {
             int error = 0;
             socklen_t len = sizeof (error);
-            int retval = getsockopt (con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
+            int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
             if (error != 0) {
+                std::cout << "sock err\n";
                 return nullptr;
             }
             int l = send(con->sock_fd, con->out.front().get_str().c_str(), strlen(con->out.front().get_str().c_str()), 0);
-            if (l == -1) {
-                std::cout << "connection refused" << std::endl;
+            std::cout << "l:" << l << std::endl;
+            if (l < 1 ) {
+                std::cout << "send err\n";
                 return nullptr;
-            }
-            
+            }   
             con->out.pop();
         }
         while (lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, MSG_WAITALL) > 0) {
@@ -60,17 +62,19 @@ void connection::push(message msg) {
 }
 
 const bool operator < (const connection & a, const connection & b) {
-    return a.id < b.id;
+    return a.get_id() < b.get_id();
 }
 
 const bool operator > (const connection & a, const connection & b) {
-    return a.id > b.id;
+    return a.get_id() > b.get_id();
 }
 
 const bool operator == (const connection & a, const connection & b) {
-    return a.id == b.id;
+    return a.get_id() == b.get_id();
 }
 
-
+int connection::get_id() const {
+    return id;
+}
 
 
