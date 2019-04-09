@@ -30,10 +30,8 @@ class server {
  public:
     server();
     ~server();
-    void lock_to_cli();
-    void unlock_to_cli();
-    void lock_to_serv();
-    void unlock_to_serv();
+    void lock();
+    void unlock();
     void push(message);
     void pop();
     message front();

@@ -21,20 +21,12 @@ message server::front() {
     return to_server.front();
 }
 
-void server::lock_to_cli() {
-    to_clients.lock();
+void server::lock() {
+    connects_mutex.lock();
 }
 
-void server::unlock_to_cli() {
-    to_clients.unlock();
-}
-
-void server::lock_to_serv() {
-    to_server.lock();
-}
-
-void server::unlock_to_serv() {
-    to_server.unlock();
+void server::unlock() {
+    connects_mutex.unlock();
 }
 
 void * find_client(void * arg) {
@@ -45,11 +37,11 @@ void * find_client(void * arg) {
     while(1) {
         socklen_t sock_size = sizeof(new_client_address);
         new_sock_fd = accept(srv->in_sock_fd, (struct sockaddr*)&new_client_address, &sock_size);
-        srv->connects_mutex.lock();
+        srv->lock();
         connection *conn = new connection(new_sock_fd, current_new_id);
         auto p = std::pair<int, connection*>(current_new_id, conn);
         srv->connects.insert(p);
-        srv->connects_mutex.unlock();
+        srv->unlock();
         current_new_id++;
     }
 }
@@ -57,20 +49,30 @@ void * find_client(void * arg) {
 void * distribution(void * arg) {
     server * srv = static_cast<server*>(arg);
     while(1) {
+        srv->lock();
         for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
                 srv->to_server.push(i->second->get_message());
             }
         }
+        srv->unlock();
         while(srv->to_clients.empty() == false) {
             message mes = srv->to_clients.front();
             srv->to_clients.pop();
+
+            std::cout << mes.get_id() << std::endl;
             if (mes.get_id() == MULTICAST_ID) {
+                srv->lock();
                 for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
+                    std::cout << "connection №" << i->first << std::endl;
                     i->second->push(mes);
+                    std::cout << "end connection №" << i->first << std::endl;
                 }
+                srv->unlock();
             } else {
+                srv->lock();
                 srv->connects[mes.get_id()]->push(mes);
+                srv->unlock();
             }
         }
     }
