@@ -43,8 +43,7 @@ void * working(void * arg) {
         while(cli->server_connection->empty() == false) {
             std::cout << cli->server_connection->get_message().get_str();
         }
-        cli->server_connection->push(message(1, std::string("giamclient\n")));
-        std::cout << "work\n";
+        cli->server_connection->push(message(1, std::string("i am client\n")));
         sleep(1);
     }
 }

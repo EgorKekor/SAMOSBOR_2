@@ -1,35 +1,34 @@
 #include "connection.h"
 #include "secure_queue.h"
 
+#include <errno.h>
+//#define EDOM
+//#define EILSEQ
+//#define ERANGE
+extern int errno;
+
 void * service(void * arg) {
     connection * con = static_cast<connection *>(arg);
     char buff[MAX_LEN_INPUT_STR];
     int lenght = 0;
     while(1) {
-//        sleep(1);
         while (con->out.empty() == false) {
-
-            int len = send(con->sock_fd, con->out.front().get_str().c_str(), strlen(con->out.front().get_str().c_str()), 0);
-            std::cout << "lengo: " << len << " lenmust: "<< strlen(con->out.front().get_str().c_str()) << std::endl;
-
+            send(con->sock_fd, con->out.front().get_str().c_str(), strlen(con->out.front().get_str().c_str()), 0);
             con->out.pop();
         }
-        
-        while (lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, 0) > 0) {
-
-            buff[lenght] = '\0';
+        while (lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, MSG_WAITALL) > 0) {
             con->in.push(message(con->id, std::string(buff)));
-            std::cout << buff <<lenght << std::endl;
         }
-        if (lenght < 0) {
+        if (lenght <= 0 && errno != EAGAIN) {
             std::cerr << "error input on socket " << con->sock_fd << " on client with id " << con->id << std::endl;
+            return nullptr;
         }
     }
 }
 
 connection::connection(int sock, int in_id) {
     sock_fd = sock;
-    //fcntl(sock_fd, F_SETFL, O_NONBLOCK);
+    fcntl(sock_fd, F_SETFL, O_NONBLOCK);
     id = in_id;
     pthread_create(&thread, NULL, service, static_cast<void*>(this));
 }
@@ -42,6 +41,11 @@ message connection::get_message() {
     in.pop();
     return result;
 }
+
+const message & connection::front() {
+    return in.front();
+}
+
 void connection::push(message msg) {
     out.push(msg);
 }

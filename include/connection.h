@@ -23,6 +23,7 @@ class connection {
     connection() {;};
     bool empty();
     message get_message();
+    const message & front();
     void push(message);
     const bool operator < (const connection &);
     const bool operator > (const connection &);

@@ -47,7 +47,7 @@ void * find_client(void * arg) {
         new_sock_fd = accept(srv->in_sock_fd, (struct sockaddr*)&new_client_address, &sock_size);
         srv->connects_mutex.lock();
         connection *conn = new connection(new_sock_fd, current_new_id);
-        auto p = std::pair<int, connection*>(1, conn);
+        auto p = std::pair<int, connection*>(current_new_id, conn);
         srv->connects.insert(p);
         srv->connects_mutex.unlock();
         current_new_id++;
@@ -57,16 +57,14 @@ void * find_client(void * arg) {
 void * distribution(void * arg) {
     server * srv = static_cast<server*>(arg);
     while(1) {
-        srv->connects_mutex.lock();
         for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
-//                std::cout << i->second->get_message().get_str().c_str() << std::endl;
-             //   srv->to_server.push(i->second->get_message());
+                srv->to_server.push(i->second->get_message());
             }
         }
-        srv->connects_mutex.unlock();
         while(srv->to_clients.empty() == false) {
             message mes = srv->to_clients.front();
+            srv->to_clients.pop();
             if (mes.get_id() == MULTICAST_ID) {
                 for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
                     i->second->push(mes);

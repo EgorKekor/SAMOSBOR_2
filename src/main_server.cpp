@@ -3,9 +3,8 @@
 int main() {
     server a;
     while (1) {
-        if (a.empty() == false) {
-            std::cout << "main" << std::endl;
-            std::cout << a.front().get_str();
+        sleep(1);
+        while (a.empty() == false) {
             a.push(a.front());
             a.pop();
         }
