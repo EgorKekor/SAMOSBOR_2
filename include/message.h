@@ -3,6 +3,8 @@
 #include <string>
 #include "event.pb.h"
 
+#define CONNECTION_ABORTED 8
+
 typedef myevent::event message;
 
 /*class message {

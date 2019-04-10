@@ -50,8 +50,16 @@ void * distribution(void * arg) {
     server * srv = static_cast<server*>(arg);
     while(1) {
         srv->lock();
-        for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
+        for(auto i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
+                if (i->second->front().flag() & CONNECTION_ABORTED) {
+                    i->second->get_message();
+                    delete i->second;
+                    srv->connects.erase(i);
+                    i = srv->connects.begin();
+                    std::cout << "delete connection\n";
+                    break;
+                }
                 srv->to_server.push(i->second->get_message());
             }
         }
@@ -59,14 +67,12 @@ void * distribution(void * arg) {
         while(srv->to_clients.empty() == false) {
             message mes = srv->to_clients.front();
             srv->to_clients.pop();
-
-            std::cout << mes.id() << std::endl;
             if (mes.id() == MULTICAST_ID) {
+
                 srv->lock();
-                for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
-                    std::cout << "connection №" << i->first << std::endl;
+                for(auto i = srv->connects.begin(); i != srv->connects.end(); i++) {
+                    std::cout << mes.flag() << " " << mes.id()<< " is multi\n";
                     i->second->push(mes);
-                    std::cout << "end connection №" << i->first << std::endl;
                 }
                 srv->unlock();
             } else {

@@ -46,8 +46,9 @@ void * working(void * arg) {
             std::cout << msg.id() << " " << msg.flag() << std::endl;
         }
         msg.set_id(0);
-        msg.set_flag(1);
+        msg.set_flag(2);
         cli->server_connection->push(msg);
+ //       std::cout << "hey!, client say a message\n";
         sleep(1);
     }
 }

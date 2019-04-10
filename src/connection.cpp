@@ -1,55 +1,71 @@
 #include "connection.h"
 #include "secure_queue.h"
 
-void * service(void * arg) {
+void * listening(void * arg) {
     connection * con = static_cast<connection *>(arg);
     char buff[MAX_LEN_INPUT_STR];
     int lenght = 0;
-    while(1) {
-        std::cout << con->get_id() << std::endl;
-        while (con->out.empty() == false) {
-            int error = 0;
-            socklen_t len = sizeof (error);
-            int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
-            if (error != 0) {
-                //con->in.push(message(con)); push error message to destroy object
-                // but we can add bool flag and in distribution destroy object with bool flag
-                std::cout << "sock err\n";
-                return nullptr;
-            }
-
-            std::string out_message;
-            con->out.front().SerializeToString(&out_message);
-            int bytes_sending = send(con->sock_fd, out_message.c_str(), out_message.length(), 0);
-            if (bytes_sending < 1 ) {
-                std::cout << "connection closed\n";
-                return nullptr;
-            }   
-            con->out.pop();
-        }
-        while (lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, MSG_WAITALL) > 0) {
-            std::string in_message(buff);
-            message msg;
-            msg.ParseFromString(in_message);
+    message msg;
+    while (1) {
+        lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, 0);//MSG_WAITALL);
+        if (lenght <= 0) {
+            msg.set_flag(CONNECTION_ABORTED);
             msg.set_id(con->get_id());
             con->in.push(msg);
+            con->out.push(msg);
+            std::cerr << "error input on socket" << con->id << std::endl;
+            return nullptr;
         }
-        if (lenght < 0) {
-            std::cerr << "error input on socket " << con->sock_fd << " on client with id " << con->id << std::endl;
+        std::string in_message(buff);
+        msg.ParseFromString(in_message);
+        msg.set_id(con->get_id());
+        con->in.push(msg);        
+        if (con->actual == false) {
+            msg.set_flag(CONNECTION_ABORTED);
+            msg.set_id(con->get_id());
+            con->in.push(msg);
+            con->out.push(msg);
+            std::cout << "end listening\n";
             return nullptr;
         }
     }
 }
 
+void * sending(void * arg) {
+    connection * con = static_cast<connection *>(arg);
+    while(1) {
+        int error = 0;
+        socklen_t len = sizeof (error);
+        int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
+        if (error != 0 || retval != 0) {
+            std::cout << "sock closed\n";
+            con->actual = false;
+            return nullptr;
+        }
+        while (con->out.empty() == false) {
+            std::string out_message;
+            con->out.front().SerializeToString(&out_message);
+            con->out.pop();
+            int bytes_sending = send(con->sock_fd, out_message.c_str(), out_message.length(), 0);
+            if (bytes_sending < 1) {
+                std::cout << "connection closed\n";
+                return nullptr;
+            }   
+        }
+    }
+}
+
 connection::connection(int sock, int in_id) {
+    actual = true;
     sock_fd = sock;
-    fcntl(sock_fd, F_SETFL, O_NONBLOCK);
+    //fcntl(sock_fd, F_SETFL, O_NONBLOCK);
     id = in_id;
     struct timeval tv;
     tv.tv_sec = 5;
     tv.tv_usec = 0;
     setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
-    pthread_create(&thread, NULL, service, static_cast<void*>(this));
+    pthread_create(&listen_thread, NULL, listening, static_cast<void*>(this));
+    pthread_create(&send_thread, NULL, sending, static_cast<void*>(this));
 }
 
 bool connection::empty() {

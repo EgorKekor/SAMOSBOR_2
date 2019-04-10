@@ -14,7 +14,7 @@
 #include <secure_queue.h>
 #include <message.h>
 
-#define MAX_LEN_INPUT_STR 32
+#define MAX_LEN_INPUT_STR 4096
 #define MULTICAST_ID 0
 
 class connection {
@@ -32,12 +32,16 @@ class connection {
    
  private:
     int id;
-    friend void * service(void * arg);
+    friend void * listening(void * arg);
+    friend void * sending(void * arg);
     secure_queue<message> in;
     secure_queue<message> out; 
     int sock_fd;
-    pthread_t thread;
+    pthread_t listen_thread;
+    pthread_t send_thread;
     void * sending_out(void *);
+    
+    bool actual;
 };
 
 #endif
