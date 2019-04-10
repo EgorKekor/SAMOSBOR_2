@@ -1,7 +1,11 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 #include <string>
-class message {
+#include "event.pb.h"
+
+typedef myevent::event message;
+
+/*class message {
  private:
     int id;
     std::string str;
@@ -14,5 +18,5 @@ class message {
     int get_id() const{
         return id;
     }
-};
+};*/
 #endif 

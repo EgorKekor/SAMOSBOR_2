@@ -1,0 +1,17 @@
+syntax = "proto3";
+package myevent;
+
+message event {
+    int32 id = 1;
+    int32 flag = 2;
+    repeated object objects = 3;
+    repeated command commands = 4;
+}
+message object {
+    int32 id = 1;
+    int32 x = 2;
+    int32 y = 3;
+}
+message command {
+    int32 id = 1;
+}

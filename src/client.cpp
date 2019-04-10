@@ -39,11 +39,15 @@ class client {
 
 void * working(void * arg) {
     client * cli = static_cast<client*>(arg);
+    message msg;
     while (1) {
         while(cli->server_connection->empty() == false) {
-            std::cout << cli->server_connection->get_message().get_str();
+            msg = cli->server_connection->get_message();
+            std::cout << msg.id() << " " << msg.flag() << std::endl;
         }
-        cli->server_connection->push(message(1, std::string("i am client\n")));
+        msg.set_id(0);
+        msg.set_flag(1);
+        cli->server_connection->push(msg);
         sleep(1);
     }
 }

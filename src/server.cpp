@@ -60,8 +60,8 @@ void * distribution(void * arg) {
             message mes = srv->to_clients.front();
             srv->to_clients.pop();
 
-            std::cout << mes.get_id() << std::endl;
-            if (mes.get_id() == MULTICAST_ID) {
+            std::cout << mes.id() << std::endl;
+            if (mes.id() == MULTICAST_ID) {
                 srv->lock();
                 for(std::map<int, connection*>::iterator i = srv->connects.begin(); i != srv->connects.end(); i++) {
                     std::cout << "connection №" << i->first << std::endl;
@@ -71,7 +71,7 @@ void * distribution(void * arg) {
                 srv->unlock();
             } else {
                 srv->lock();
-                srv->connects[mes.get_id()]->push(mes);
+                srv->connects[mes.id()]->push(mes);
                 srv->unlock();
             }
         }

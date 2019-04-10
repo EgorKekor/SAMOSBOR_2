@@ -12,19 +12,27 @@ void * service(void * arg) {
             socklen_t len = sizeof (error);
             int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
             if (error != 0) {
+                //con->in.push(message(con)); push error message to destroy object
+                // but we can add bool flag and in distribution destroy object with bool flag
                 std::cout << "sock err\n";
                 return nullptr;
             }
-            int l = send(con->sock_fd, con->out.front().get_str().c_str(), strlen(con->out.front().get_str().c_str()), 0);
-            std::cout << "l:" << l << std::endl;
-            if (l < 1 ) {
-                std::cout << "send err\n";
+
+            std::string out_message;
+            con->out.front().SerializeToString(&out_message);
+            int bytes_sending = send(con->sock_fd, out_message.c_str(), out_message.length(), 0);
+            if (bytes_sending < 1 ) {
+                std::cout << "connection closed\n";
                 return nullptr;
             }   
             con->out.pop();
         }
         while (lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, MSG_WAITALL) > 0) {
-            con->in.push(message(con->id, std::string(buff)));
+            std::string in_message(buff);
+            message msg;
+            msg.ParseFromString(in_message);
+            msg.set_id(con->get_id());
+            con->in.push(msg);
         }
         if (lenght < 0) {
             std::cerr << "error input on socket " << con->sock_fd << " on client with id " << con->id << std::endl;
