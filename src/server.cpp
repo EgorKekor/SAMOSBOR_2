@@ -1,13 +1,16 @@
 #include "server.h"
 server::~server() {
     for(std::map<int, connection*>::iterator i = connects.begin(); i != connects.end(); i++) {
-        delete i->second;
+        if (i->second != nullptr) {
+            delete i->second;
+        }
     }
 }
 
 void server::push(message msg) {
     to_clients.push(msg);
 }
+
 
 bool server::empty() {
     return to_server.empty();
@@ -36,7 +39,10 @@ void * find_client(void * arg) {
     int new_sock_fd;
     while(1) {
         socklen_t sock_size = sizeof(new_client_address);
+
+        std::cout << "жду нового бойца в клуб!\n";
         new_sock_fd = accept(srv->in_sock_fd, (struct sockaddr*)&new_client_address, &sock_size);
+        std::cout << "ебать, новый чувак пришел поиграть\n";
         srv->lock();
         connection *conn = new connection(new_sock_fd, current_new_id);
         auto p = std::pair<int, connection*>(current_new_id, conn);
@@ -50,17 +56,18 @@ void * distribution(void * arg) {
     server * srv = static_cast<server*>(arg);
     while(1) {
         srv->lock();
+        start_connects_iteration:
         for(auto i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
                 if (i->second->front().flag() & CONNECTION_ABORTED) {
                     i->second->get_message();
                     delete i->second;
                     srv->connects.erase(i);
-                    i = srv->connects.begin();
                     std::cout << "delete connection\n";
-                    break;
+                    goto start_connects_iteration;
                 }
                 srv->to_server.push(i->second->get_message());
+
             }
         }
         srv->unlock();
@@ -77,7 +84,9 @@ void * distribution(void * arg) {
                 srv->unlock();
             } else {
                 srv->lock();
-                srv->connects[mes.id()]->push(mes);
+                if (srv->connects.find(mes.id()) != srv->connects.end()) {
+                    srv->connects[mes.id()]->push(mes);
+                }
                 srv->unlock();
             }
         }

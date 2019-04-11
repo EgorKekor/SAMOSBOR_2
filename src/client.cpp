@@ -23,6 +23,7 @@
 class client {
  public:
     client();
+    ~client();
     void push(message);
     message front();
     void pop();
@@ -50,6 +51,12 @@ void * working(void * arg) {
         cli->server_connection->push(msg);
  //       std::cout << "hey!, client say a message\n";
         sleep(1);
+    }
+}
+
+client::~client() {
+    if (server_connection != nullptr) {
+        delete server_connection;
     }
 }
 

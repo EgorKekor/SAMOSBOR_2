@@ -10,6 +10,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
+#include <signal.h>
 
 #include <secure_queue.h>
 #include <message.h>
@@ -29,9 +30,10 @@ class connection {
     const bool operator > (const connection &);
     const bool operator == (const connection &);
     int get_id() const;
-   
+    void leave();
  private:
     int id;
+    void * sending_out(void *);
     friend void * listening(void * arg);
     friend void * sending(void * arg);
     secure_queue<message> in;
@@ -39,7 +41,6 @@ class connection {
     int sock_fd;
     pthread_t listen_thread;
     pthread_t send_thread;
-    void * sending_out(void *);
     
     bool actual;
 };

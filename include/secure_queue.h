@@ -10,22 +10,10 @@ class secure_queue {
     void pop();
     const T& front();
     void push(const T&);
-    void lock();
-    void unlock();
  private:
     std::mutex mut;
     std::queue<T> que;
 };
-
-template <typename T>
-void secure_queue<T>::lock() {
- //   mut.lock();
-}
-
-template <typename T>
-void secure_queue<T>::unlock() {
-   // mut.unlock();
-}
 
 template <typename T>
 bool secure_queue<T>::empty() {
