@@ -60,6 +60,7 @@ void * sending(void * arg) {
         while (con->out.empty() == false) {
             std::string out_message;
             con->out.front().SerializeToString(&out_message);
+            std::cout << con->out.front().flag() << " is out flag\n" << out_message.c_str() << std::endl;
             con->out.pop();
             int bytes_sending = send(con->sock_fd, out_message.c_str(), out_message.length(), 0);
             if (bytes_sending < 1) {
@@ -73,18 +74,18 @@ void * sending(void * arg) {
             std::cout << "end sending\n";
             return nullptr;
         }
-
+        sem_wait(&(con->semaphore));
     }
 }
 
 connection::connection(int sock, int in_id) {
     actual = true;
     sock_fd = sock;
-    //fcntl(sock_fd, F_SETFL, O_NONBLOCK);
     id = in_id;
     struct timeval tv;
     tv.tv_sec = 5;
     tv.tv_usec = 0;
+    sem_init(&semaphore, 0, 1);
     setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
     pthread_create(&listen_thread, NULL, listening, static_cast<void*>(this));
     pthread_create(&send_thread, NULL, sending, static_cast<void*>(this));
@@ -105,6 +106,7 @@ const message & connection::front() {
 
 void connection::push(message msg) {
     out.push(msg);
+    sem_post(&semaphore);
 }
 
 const bool operator < (const connection & a, const connection & b) {

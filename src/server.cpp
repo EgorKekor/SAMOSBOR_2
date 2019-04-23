@@ -9,6 +9,7 @@ server::~server() {
 
 void server::push(message msg) {
     to_clients.push(msg);
+    sem_post(&(dist_semaphore));
 }
 
 
@@ -90,6 +91,7 @@ void * distribution(void * arg) {
                 srv->unlock();
             }
         }
+        sem_wait(&(srv->dist_semaphore));
     }
 }
 
@@ -101,6 +103,7 @@ server::server() {
     my_address.sin_port = htons(PORT);
     bind(in_sock_fd, (struct sockaddr *)&my_address, sizeof(my_address));
     listen(in_sock_fd, MAX_CLIENTS_QUEUE);
+    sem_init(&dist_semaphore, 0, 1);
     pthread_create(&new_client_listen, NULL, find_client, static_cast<void*>(this));
     pthread_create(&distributor, NULL, distribution, static_cast<void*>(this));
 }

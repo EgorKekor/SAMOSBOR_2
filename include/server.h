@@ -49,6 +49,7 @@ class server {
     friend void * distribution(void *);
     std::mutex connects_mutex;
     std::map<int, connection *> connects;
+    sem_t dist_semaphore;
 };
 
 #endif

@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <signal.h>
+#include <semaphore.h>
 
 #include <secure_queue.h>
 #include <message.h>
@@ -43,6 +44,7 @@ class connection {
     pthread_t send_thread;
     
     bool actual;
+    sem_t semaphore;
 };
 
 #endif
