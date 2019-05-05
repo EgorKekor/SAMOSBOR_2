@@ -13,20 +13,20 @@ message main {
 }
 
 message make_move {
-    int32 type = 1;
+    int32 type = 1; //must define types moving TODO(EgorKekor)
     int32 id = 2;
     int32 x = 3;
     int32 y = 4;
 }
 
 message make_actor {
-    int32 name = 1;
+    int32 name = 1;  //must define name actors TODO(EgorKekor)
     int32 creator_id = 2;
 }
 
 message take_damage {
     int32 damage = 1;
-    int32 type = 2;
+    int32 type = 2; //must define types damage TODO(EgorKekor)
     int32 id = 3;
 }
 
