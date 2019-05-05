@@ -12,6 +12,10 @@ void server::push(message msg) {
     sem_post(&(dist_semaphore));
 }
 
+void server::push(std::vector<message> &msg) {
+    to_clients.push(msg);
+    sem_post(&(dist_semaphore));
+}
 
 bool server::empty() {
     return to_server.empty();

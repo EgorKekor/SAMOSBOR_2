@@ -10,6 +10,7 @@ class secure_queue {
     void pop();
     const T& front();
     void push(const T&);
+    void push(std::vector<T>&);
  private:
     std::mutex mut;
     std::queue<T> que;
@@ -46,4 +47,12 @@ void secure_queue<T>::push(const T& input) {
     mut.unlock();
 }
 
+template <typename T>
+void secure_queue<T>::push(std::vector<T>& input) {
+    mut.lock();
+    for (auto i = input.begin(); i != input.end(); i++) {
+        que.push(*i);
+    }
+    mut.unlock();
+}
 #endif

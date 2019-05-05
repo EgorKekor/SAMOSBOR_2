@@ -33,6 +33,7 @@ class server {
     void lock();
     void unlock();
     void push(message);
+    void push(std::vector<message>&);
     void pop();
     message front();
     bool empty();

@@ -25,33 +25,25 @@ class client {
     client();
     ~client();
     void push(message);
-    message front();
+    const message& front();
     void pop();
  private:
     int sock_fd;
     struct sockaddr_in my_address;
     secure_queue<message> to_server;
-    pthread_t worker;
     connection * server_connection;
-    
-
-    friend void * working(void *);
 };
 
-void * working(void * arg) {
-    client * cli = static_cast<client*>(arg);
-    message msg;
-    while (1) {
-        while(cli->server_connection->empty() == false) {
-            msg = cli->server_connection->get_message();
-            std::cout << msg.id() << " " << msg.flag() << std::endl;
-        }
-        msg.set_id(0);
-        msg.set_flag(2);
-        cli->server_connection->push(msg);
- //       std::cout << "hey!, client say a message\n";
-        sleep(1);
-    }
+void client::pop() {
+    server_connection->get_message();
+}
+
+const message& client::front() {
+    return server_connection->front();
+}
+
+void client::push(message msg) {
+    server_connection->push(msg);
 }
 
 client::~client() {
@@ -78,14 +70,6 @@ client::client() {
     }
 
     server_connection = new connection(sock_fd, 0);
-    pthread_create(&worker, NULL, working, static_cast<void*>(this));
     std::cout << "constructor " << std::endl;
 }
-
-int main() {
-    client c;
-    sleep(100);
-}
-
-
 
