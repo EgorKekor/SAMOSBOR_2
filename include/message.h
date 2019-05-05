@@ -5,8 +5,6 @@
 
 #define CONNECTION_ABORTED 8
 
-typedef myevent::event message;
-typedef myevent::object object;
-typedef myevent::command command;
+typedef msg::main message;
 
 #endif 
