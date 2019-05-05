@@ -1,0 +1,4 @@
+/home/kekor/SAMOSBOR_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/kekor/SAMOSBOR_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kekor/SAMOSBOR_2/cmake-build-debug/CMakeFiles/proto.dir
+/home/kekor/SAMOSBOR_2/cmake-build-debug/CMakeFiles/SAMOSBOR_2.dir
