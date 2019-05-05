@@ -1,17 +1,39 @@
 syntax = "proto3";
-package myevent;
+package msg;
 
-message event {
+message main {
     int32 id = 1;
     int32 flag = 2;
-    repeated object objects = 3;
-    repeated command commands = 4;
+    repeated int32 client_command = 3; // id of client commands
+    // servers commands:
+    repeated make_bullet bullet = 4;  
+    repeated make_move move = 5;
+    repeated make_actor actor = 6;
+    repeated take_damage damage = 7;
 }
-message object {
-    int32 id = 1;
-    int32 x = 2;
-    int32 y = 3;
+
+message make_move {
+    int32 type = 1;
+    int32 id = 2;
+    int32 x = 3;
+    int32 y = 4;
 }
-message command {
-    int32 id = 1;
+
+message make_actor {
+    int32 name = 1;
+    int32 creator_id = 2;
 }
+
+message take_damage {
+    int32 damage = 1;
+    int32 type = 2;
+    int32 id = 3;
+}
+
+message make_bullet {
+    int32 parent = 1;
+    int32 vector_x = 2;
+    int32 vector_y = 3;
+    int32 bullet_id = 4;
+}
+
