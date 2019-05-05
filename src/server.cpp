@@ -72,7 +72,6 @@ void * distribution(void * arg) {
                     goto start_connects_iteration;
                 }
                 srv->to_server.push(i->second->get_message());
-
             }
         }
         srv->unlock();
@@ -95,7 +94,7 @@ void * distribution(void * arg) {
                 srv->unlock();
             }
         }
-        sem_wait(&(srv->dist_semaphore));
+        ///sem_wait(&(srv->dist_semaphore)); ????
     }
 }
 

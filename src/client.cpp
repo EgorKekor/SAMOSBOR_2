@@ -73,3 +73,6 @@ client::client() {
     std::cout << "constructor " << std::endl;
 }
 
+int main() {
+
+}
