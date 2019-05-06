@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-bafa6110560895b3cf62ec266706ccee event.pb.h

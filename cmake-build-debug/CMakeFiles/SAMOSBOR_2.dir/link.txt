@@ -1,1 +1,0 @@
-/usr/bin/c++   -pthread -g   CMakeFiles/SAMOSBOR_2.dir/src/main.cpp.o CMakeFiles/SAMOSBOR_2.dir/src/server.cpp.o CMakeFiles/SAMOSBOR_2.dir/src/connection.cpp.o  -o SAMOSBOR_2 -Wl,-rpath,/usr/local/lib libproto.a /usr/local/lib/libprotobuf.so 
