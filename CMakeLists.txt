@@ -35,6 +35,7 @@ add_executable(server ${server_SRC})
 
 
 target_link_libraries(client proto ${PROTOBUF_LIBRARY})
+target_link_libraries(server proto ${PROTOBUF_LIBRARY})
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 FIND_PACKAGE(SFML 2 REQUIRED system window graphics network audio)
 
