@@ -1,26 +1,26 @@
 #include "GameContext.h"
+#include <vector>
 
-GameContext::GameContext(sf::RenderWindow &Window_, vector<message>& Input, vector<message>& Output):
+GameContext::GameContext(sf::RenderWindow &Window_, std::vector<message>& Input, std::vector<message>& Output):
 Window(&Window_), MessInput(Input), MessOutput(Output),
 Server()
 MsgCreator() {
-    View_.reset(sf::FloatRect(0, 0, 1280, 720));
-
+    View.reset(sf::FloatRect(0, 0, 1280, 720));
 }
 
 
-const MessageCreator& GameContext::GetMsgCreator() {
+const GameContext::MessageCreator& GameContext::GetMsgCreator() const {
     return &MsgCreator;
 }
 
-const sf::RenderWindow& GameContext::GetWindow() {
-    return &Window;
+const sf::RenderWindow& GameContext::GetWindow() const {
+    return Window;
 }
 
-vector<message>& GameContext::GetMessInput() {
-    return &MessInput;
+std::vector<message>& GameContext::GetMessInput() const {
+    return MessInput;
 }
 
-vector<message>& GameContext::GetMessOutput() {
-    return &MessOutput;
+std::vector<message>& GameContext::GetMessOutput() const {
+    return MessOutput;
 }

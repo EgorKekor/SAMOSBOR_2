@@ -6,27 +6,28 @@
 #include <server.h>
 #include <../res/secure_queue.h>
 #include <../res/message.h>
+#include <vector>
 
 
 
 class GameContext {
  public:
-    GameContext(sf::RenderWindow &Window_, vector<message>& Input, vector<message>& Output);
-    const MessageCreator& GetMsgCreator();
-    const sf::RenderWindow& GetWindow();
+    GameContext(sf::RenderWindow &Window_, std::vector<message>& Input, std::vector<message>& Output);
+    const MessageCreator& GetMsgCreator() const;
+    const sf::RenderWindow& GetWindow() const;
 
-    vector<message>& GetMessInput();
-    vector<message>& GetMessOutput();
+    std::vector<message>& GetMessInput() const;
+    std::vector<message>& GetMessOutput() const;
 
  private:
     server Server;
-    MessageCreator MsgCreator;
+    std::MessageCreator MsgCreator;
 
-    vector<message>& MessInput;
-    vector<message>& MessOutput;
+    std::vector<message>& MessInput;
+    std::vector<message>& MessOutput;
 
 
-    sf::RenderWindow Window;
+    sf::RenderWindow &Window;
     sf::View View;
 
 }
