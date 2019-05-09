@@ -1,39 +1,4 @@
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <vector>
-#include <string>
-#include <iostream>
-#include <map>
-#include <utility>
-
-#include "message.h"
-#include "secure_queue.h"
-#include "connection.h"
-
-
-#define PORT 1100
-
-class client {
- public:
-    client();
-    ~client();
-    void push(message);
-    const message& front();
-    void pop();
- private:
-    int sock_fd;
-    struct sockaddr_in my_address;
-    secure_queue<message> to_server;
-    connection * server_connection;
-};
-
+#include "client.h"
 void client::pop() {
     server_connection->get_message();
 }
@@ -71,8 +36,4 @@ client::client() {
 
     server_connection = new connection(sock_fd, 0);
     std::cout << "constructor " << std::endl;
-}
-
-int main() {
-
 }

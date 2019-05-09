@@ -4,5 +4,6 @@
 
 int main() {
     server a;
+    sleep(100);
     return 0;
 }
