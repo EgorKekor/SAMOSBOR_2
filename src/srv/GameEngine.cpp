@@ -7,7 +7,7 @@ int GameEngine::handleInput() {
     return 0;
 }
 
-int GameEngine::update(sf::TimedeltaTime delta) {
+int GameEngine::update(sf::Time deltaTime) {
     return 0;
 }
 

@@ -1,16 +1,19 @@
 #ifndef STATE_MANAGER_H
 #define STATE_MANAGER_G
+
 #include <stack>
+#include <SFML/Graphics.hpp>
+
 
 class StateManager {
  public:
     void update();
-    void handleInput(sf::TimedeltaTime);
+    void handleInput(sf::Time deltaTime);
  private:
     server tcp_server;
     void pop();
     void push(State);
-    std::stack<Stack *>
+    std::stack<Stack *>;
     GameContext;
 }
 

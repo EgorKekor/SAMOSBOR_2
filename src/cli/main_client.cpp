@@ -1,4 +1,5 @@
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 #include "client.h"
 
@@ -12,5 +13,7 @@ int main() {
     }
     std::cout << "connected\n";
     sleep(100);
-    return 0;
+    sf::RenderWindow window(sf::VideoMode(640, 480), "Samosbor");
+
+  return 0;
 }
