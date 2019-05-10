@@ -26,9 +26,10 @@ int GameEngine::run() {
 
 
 int GameEngine::handleInput() {
-    message msg;
-    while (!Server.GetInput.empty()) {          //  TO_DO: Сделать на сервере методы Get для входной и выходной очереди
-        if (/*Проверить сообщение на завершение*/) {
+    sf::Event event;
+    while (!Server.empty()) {
+        Window.pollEvent(event);
+        if (event.type == sf::Event::Closed) {
             Window.close();
             running = false;
         } else {
