@@ -7,8 +7,8 @@
 
 class StateManager {
  public:
-    void update();
-    void handleInput(sf::Time deltaTime);
+    void handleInput();
+    void update(sf::Time deltaTime);
  private:
     server tcp_server;
     void pop();
