@@ -1,9 +1,10 @@
 #include <iostream>
+#include <include/srv/GameEngine.h>
 
 #include "server.h"
 
 int main() {
-    server a;
-    sleep(100);
+    GameEngine Game;
+    Game.run();
     return 0;
 }
