@@ -12,24 +12,24 @@
 
 class GameContext {
  public:
-    GameContext(sf::RenderWindow &Window_, std::vector<message>& Input, std::vector<message>& Output);
-    const MessageCreator& GetMsgCreator() const;
-    const sf::RenderWindow& GetWindow() const;
+    GameContext(sf::RenderWindow &Window_, server &server_);
 
-    std::vector<message>& GetMessInput() const;
-    std::vector<message>& GetMessOutput() const;
+    const MessageCreator& GetMsgCreator() const {return &MsgCreator;};
+    const sf::RenderWindow& GetWindow() const {return Window;};
+    std::vector<message>& GetMessInput() const {return MessInput;};
+    std::vector<message>& GetMessOutput() const {return MessOutput;};
+    server& GetServer() const { return Server;};
 
  private:
-    server Server;
+    server &Server;
     std::MessageCreator MsgCreator;
 
-    std::vector<message>& MessInput;
-    std::vector<message>& MessOutput;
+    std::vector<message>& MessInput;        //  Это не прямые ссылки на контейнер сервера!
+    std::vector<message>& MessOutput;       //  Данные вектора заполняются/считываются, а в конце цикла пушатся/читаются на/с сервер!
 
 
     sf::RenderWindow &Window;
     sf::View View;
-
-}
+};
 
 #endif
