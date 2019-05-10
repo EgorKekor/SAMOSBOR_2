@@ -4,17 +4,16 @@
 #include <../res/message.h>
 #include <../res/secure_queue.h>
 #include <server.h>
+#include <StateManager.h>
 #include <queue>
 
 class GameEngine {
  public:
     explicit GameEngine();
     int run();
+ private:
     int handleInput();
     int update(sf::Time deltaTime);
-    int quit();
-    bool running();
- private:
     bool running;
     sf::RenderWindow Window;
     StateManager Manager;

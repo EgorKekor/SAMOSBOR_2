@@ -2,6 +2,7 @@
 
 
 GameEngine::GameEngine(): Window(sf::VideoMode(1280, 720), "SAMOSBOR2", sf::Style::Close),
+running(true),
 Server(),
 Manager(Server) {}
 
@@ -10,7 +11,7 @@ int GameEngine::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time const TimePerFrame = sf::seconds(1.f / 60.f);
-    while (mWindow.isOpen()) {
+    while (Window.isOpen() && running) {
         handleInput();
         timeSinceLastUpdate += clock.restart();
         if (timeSinceLastUpdate > TimePerFrame) {
@@ -20,7 +21,6 @@ int GameEngine::run() {
             //manager.draw();
         }
     }
-    running = false;
     return 0;
 }
 
@@ -29,12 +29,12 @@ int GameEngine::handleInput() {
     message msg;
     while (!Server.GetInput.empty()) {          //  TO_DO: Сделать на сервере методы Get для входной и выходной очереди
         if (/*Проверить сообщение на завершение*/) {
-            mWindow.close();
-            quit();
+            Window.close();
+            running = false;
+        } else {
+            Manager.handleInput();
         }
-        Manager.handleInput();
     }
-
     return 0;
 }
 
@@ -43,12 +43,5 @@ int GameEngine::update(sf::Time deltaTime) {
     return 0;
 }
 
-int GameEngine::quit() {
-    running == false;
-    return 0;
-}
 
-bool GameEngine::running() {
-    return running;
-}
 
