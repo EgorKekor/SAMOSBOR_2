@@ -2,7 +2,7 @@
 
 bool GameEngine::running_ = true;
 
-GameEngine::GameEngine() : mWindow(sf::VideoMode(640, 480), "SAMOSBOR", sf::Style::Fullscreen),
+GameEngine::GameEngine() : mWindow(sf::VideoMode(1920, 1080), "SAMOSBOR", sf::Style::Fullscreen),
                            Context(mWindow),
                            manager(Context) {}
 

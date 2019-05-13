@@ -11,12 +11,13 @@ class MenuState : public State  {
   MenuState(StateManager *stack, GameContext &context_);
   void handle_input(sf::Keyboard::Key key, bool isPressed) override;
   void handle_input(sf::Mouse::Button mouse, bool isPressed) override;
+  //void handle_input();
   void update(sf::Time deltaTime) override;
   void draw() override;
  private:
   int menuNum = 0;
-  sf::Texture buttonTexture;
-  sf::Sprite exitSprite;
+  sf::Texture buttonTexture, backgroundTexture;
+  sf::Sprite exitSprite, gameSprite, backgroundSprite;
   sf::Font font;
 };
 
