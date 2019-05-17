@@ -18,6 +18,8 @@ void StateManager::process_events(const sf::Event &event) {
       break;
     case sf::Event::KeyReleased:get_state()->handle_input(event.key.code, false);
       break;
+    case sf::Event::TextEntered:get_state()->handle_input(static_cast<char>(event.text.unicode));
+      break;
     default:break;
   }
   StatesBuf.clear();

@@ -18,6 +18,8 @@ class State {
 
   virtual void handle_input(sf::Keyboard::Key key, bool isPressed) = 0;
   virtual void handle_input(sf::Mouse::Button mouse, bool isPressed) = 0;
+  virtual void handle_input(char symbol) = 0;
+
   virtual void update(sf::Time deltaTime) = 0;
   virtual void draw() = 0;
 

@@ -1,8 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "client.h"
-
 #include "GameEngine.h"
 
 int main() {
@@ -10,14 +8,14 @@ int main() {
   while (game.running()) {
     game.run();
   }
-//    client a;
-//    std::string adr;
+//  client a;
+//  std::string adr;
+//  std::cin >> adr;
+//  while (a.connect_to_address(adr) != 0) {
+//    std::cout << "error addres\n";
 //    std::cin >> adr;
-//    while (a.connect_to_address(adr) != 0) {
-//        std::cout << "error addres\n";
-//        std::cin >> adr;
-//    }
-//    std::cout << "connected\n";
-//    sleep(100);
+//  }
+//  std::cout << "connected\n";
+//  sleep(100);
   return 0;
 }

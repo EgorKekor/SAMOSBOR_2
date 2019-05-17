@@ -4,13 +4,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "TextureHolder.h"
+#include "client.h"
 
 class GameContext {
  public:
   explicit GameContext(sf::RenderWindow &wnd);
 
   sf::RenderWindow *mWindow;
-  sf::View View;
+  sf::View view;
+  sf::Vector2u windowSize;
+  client Client;
+
   //TextureHolder allUnitsTextures;
   // MusicPlayer music;
 
