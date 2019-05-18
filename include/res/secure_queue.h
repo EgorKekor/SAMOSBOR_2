@@ -9,12 +9,25 @@ class secure_queue {
     bool empty();
     void pop();
     const T& front();
+    std::vector<T> get_all();
     void push(const T&);
     void push(std::vector<T>&);
  private:
     std::mutex mut;
     std::queue<T> que;
 };
+
+template <typename T>
+std::vector<T> secure_queue<T>::get_all() {
+    mut.lock();
+    std::vector<T> result;
+    while (que.empty() == false) {
+        result.push_back(que.front());
+        que.pop();
+    }
+    mut.unlock();
+    return result;
+}
 
 template <typename T>
 bool secure_queue<T>::empty() {
