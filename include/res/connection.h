@@ -25,6 +25,7 @@ class connection {
     connection() {;};
     bool empty();
     message get_message();
+    std::vector<message> get_msg_vector();
     const message & front();
     void push(message);
     const bool operator < (const connection &);

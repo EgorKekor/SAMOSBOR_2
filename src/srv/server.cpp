@@ -25,6 +25,10 @@ bool server::empty() {
     return to_server.empty();
 }
 
+std::vector<message> server::get_msg_vector() {
+    return to_server.get_all();
+}
+
 void server::pop() {
     return to_server.pop();
 }

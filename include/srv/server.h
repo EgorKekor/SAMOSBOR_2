@@ -37,6 +37,7 @@ class server {
     void push(message);
     void push(std::vector<message>&);
     void pop();
+    std::vector<message> get_msg_vector();
     message front();
     bool empty();
     int GetConnectNumb();

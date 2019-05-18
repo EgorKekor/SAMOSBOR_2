@@ -1,6 +1,10 @@
 #include "connection.h"
 #include "secure_queue.h"
 
+std::vector<message> connection::get_msg_vector() {
+    return in.get_all();
+}
+
 void connection::leave() {
     std::cout << "somebody leave con thread\n";
     if (actual == true) {
