@@ -29,6 +29,7 @@ class client {
     void push(message);
     const message& front();
     void pop();
+    bool empty();
     int connect_to_address(std::string);
  private:
     int sock_fd;

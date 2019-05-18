@@ -44,7 +44,8 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
         if (context.Client.empty()) {
           continue;
         }
-        message msg = context.Client.get_message();
+        message msg = context.Client.front();
+        context.Client.pop();
         if (msg.flag == START_FLAG) {
           break;
         }
