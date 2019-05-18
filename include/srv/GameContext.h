@@ -15,10 +15,10 @@ class GameContext {
  public:
     GameContext(sf::RenderWindow &Window_, server &server_);
 
-    const MessageCreator& GetMsgCreator() const {return MsgCreator;};
+    MessageCreator& GetMsgCreator() const {return MsgCreator;};
     const sf::RenderWindow& GetWindow() const {return Window;};
     std::vector<message>& GetMessInput() {return MessInput;};
-    std::vector<message>& GetMessOutput()  {return MessOutput;};
+    std::vector<message>& GetMessOutput() const {return MessOutput;};
     server& GetServer() const { return Server;};
 
  private:
