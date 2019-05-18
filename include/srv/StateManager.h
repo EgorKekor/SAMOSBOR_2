@@ -12,7 +12,7 @@
 class StateManager {
     using STATE_PTR = std::unique_ptr<State>;
 public:
-    explicit StateManager(server &server_);
+    explicit StateManager(sf::RenderWindow &Window_, server &server_);
 
     bool handleInput();
     bool update(sf::Time deltaTime);
@@ -27,7 +27,7 @@ private:
 
     std::vector<STATE_PTR> StatesStack;
     std::vector<STATE_PTR> StatesBuf;
-    GameContext &Context;
+    GameContext Context;
 };
 
 

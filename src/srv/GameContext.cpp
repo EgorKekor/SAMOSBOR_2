@@ -1,4 +1,5 @@
 #include "GameContext.h"
+#include <SFML/Graphics.hpp>
 
 
 GameContext::GameContext(sf::RenderWindow &Window_, server &server_):

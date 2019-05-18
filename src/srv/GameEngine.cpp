@@ -4,7 +4,7 @@
 GameEngine::GameEngine(): Window(sf::VideoMode(1280, 720), "SAMOSBOR2", sf::Style::Close),
 running(true),
 Server(),
-Manager(Server) {}
+Manager(Window, Server) {}
 
 
 int GameEngine::run() {

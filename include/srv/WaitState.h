@@ -6,14 +6,11 @@
 #define SERVER_WAITSTATE_H
 
 #include "State.h"
-#include "GameEngine.h"
 #include "message.h"
 
 #include <memory>
 #include <string.h>
 #include <iostream>
-
-class StateManager;     //  ? Проверить на удаление
 
 
 class WaitState : public State {
