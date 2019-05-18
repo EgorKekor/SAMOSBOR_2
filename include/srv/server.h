@@ -39,6 +39,7 @@ class server {
     void pop();
     message front();
     bool empty();
+    int GetConnectNumb();
  private:
     int in_sock_fd;
     struct sockaddr_in my_address;
