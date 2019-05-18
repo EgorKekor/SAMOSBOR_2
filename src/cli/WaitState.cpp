@@ -22,7 +22,7 @@ WaitState::WaitState(StateManager *stack, GameContext &context_) : State(stack, 
 
   errorText.setPosition(helpText.getPosition().x, helpText.getPosition().y + 250);
   errorText.setFont(font);
-  errorText.setString(std::wstring(L"Не корректный IP"));
+  errorText.setString(std::wstring(L"Не корректный IP, введите еще раз."));
   errorText.setCharacterSize(58);
   errorText.setColor(sf::Color::Red);
 
@@ -39,7 +39,7 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
   } else if (key == sf::Keyboard::Return) {
     if (is_ipv4_address()) {
       ipError = false;
-      connectionEstablished = context.Client.connect_to_address(address) != 0;
+      connectionEstablished = context.Client.connect_to_address(address) == 0;
 //      while (true) {
 //        if (context.Client.empty()) {
 //          continue;
