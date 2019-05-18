@@ -7,6 +7,10 @@ server::~server() {
     }
 }
 
+int server::GetConnectNumb() {
+    return connects.size();
+}
+
 void server::push(message msg) {
     to_clients.push(msg);
     sem_post(&(dist_semaphore));
