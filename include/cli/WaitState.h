@@ -20,7 +20,6 @@ class WaitState : public State  {
   sf::Text text, helpText, errorText;
 
   std::string address;
-  bool validAddress;
   bool connectionEstablished;
   bool ipError;
 };

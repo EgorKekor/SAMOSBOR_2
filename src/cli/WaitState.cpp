@@ -1,5 +1,3 @@
-#include <include/cli/WaitState.h>
-
 #include "AllStates.h"
 
 #include <arpa/inet.h>
@@ -13,7 +11,6 @@ using STATE_PTR = std::unique_ptr<State>;
 
 WaitState::WaitState(StateManager *stack, GameContext &context_) : State(stack, context_) {
   font.loadFromFile("../Graphics/font.ttf");
-  validAddress = false;
   connectionEstablished = false;
   ipError = false;
 
@@ -39,22 +36,21 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
   if ((key == sf::Keyboard::Escape) && (isPressed)) {
     STATE_PTR new_state = make_unique<MenuState>(stack, context);
     push_state(move(new_state));
-  }
-  else if (key == sf::Keyboard::Return) {
-    if (is_ipv4_address() && !validAddress) {
-      validAddress = true;
+  } else if (key == sf::Keyboard::Return) {
+    if (is_ipv4_address()) {
+      ipError = false;
       connectionEstablished = context.Client.connect_to_address(address) != 0;
       if (connectionEstablished) {
-        // GameState
-        STATE_PTR new_state = make_unique<MenuState>(stack, context);
+        STATE_PTR new_state = make_unique<GameState>(stack, context);
         push_state(move(new_state));
+      } else {
+        ipError = true;
+        address.clear();
       }
     } else {
       ipError = true;
       address.clear();
     }
-//    STATE_PTR new_state = make_unique<MenuState>(stack, context);
-//    push_state(move(new_state));
   }
 }
 void WaitState::handle_input(sf::Mouse::Button /*mouse*/, bool /*isPressed*/) {
