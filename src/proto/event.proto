@@ -8,32 +8,39 @@ message main {
     // servers commands:
     repeated make_bullet bullet = 4;  
     repeated make_move move = 5;
-    repeated make_actor actor = 6;
+    repeated make_entity entity = 6;
     repeated take_damage damage = 7;
 }
 
 message make_move {
-    int32 type = 1;
-    int32 id = 2;
-    int32 x = 3;
-    int32 y = 4;
+    int32 object_type = 1;
+    int32 object_id = 2;
+    float new_x = 3;
+    float new_y = 4;
 }
 
-message make_actor {
-    int32 name = 1;
-    int32 creator_id = 2;
+
+message make_entity {
+    int32 id = 1;
+    int32 type = 2;
+    int32 name = 3;
+    int32 creator_id = 4;
+    float x = 5;
+    float y = 6;
 }
+
 
 message take_damage {
     int32 damage = 1;
-    int32 type = 2;
-    int32 id = 3;
+    int32 object_type = 2;
+    int32 object_id = 3;
 }
 
 message make_bullet {
-    int32 parent = 1;
-    int32 vector_x = 2;
-    int32 vector_y = 3;
-    int32 bullet_id = 4;
+    int32 bullet_id = 1;
+    int32 parent_id = 2;
+    float target_x = 3;
+    float target_y = 4;
+    int32 weapon_id = 5;
 }
 

@@ -30,8 +30,8 @@ file(GLOB server_SRC
         "src/srv/*.cpp"
         )
 
-add_executable(client ${client_SRC})
-add_executable(server ${server_SRC})
+add_executable(client ${client_SRC} include/srv/MessageCreator.h include/res/Defines.h)
+add_executable(server ${server_SRC} src/srv/MessageCreator.cpp)
 
 
 target_link_libraries(client proto ${PROTOBUF_LIBRARY})
