@@ -11,6 +11,7 @@
 #include <Defines.h>
 
 class MessageCreator{
+public:
     MessageCreator(std::vector<message>& Outp);
     bool SendBullet(size_t  bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id);
     bool SendDamage(int damage, size_t object_type, size_t object_id);
