@@ -13,8 +13,8 @@
 #include <signal.h>
 #include <semaphore.h>
 
-#include <secure_queue.h>
-#include <message.h>
+#include <res/secure_queue.h>
+#include <res/message.h>
 
 #define MAX_LEN_INPUT_STR 4096
 #define MULTICAST_ID 0

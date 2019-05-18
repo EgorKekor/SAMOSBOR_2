@@ -2,7 +2,7 @@
 #define MESSAGE_H
 #include <string>
 #include "event.pb.h"
-#include <Defines.h>
+#include <res/Defines.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 

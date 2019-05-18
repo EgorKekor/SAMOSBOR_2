@@ -2,10 +2,10 @@
 // Created by kekor on 09.05.19.
 //
 
-#include <MessageCreator.h>
+#include <srv/MessageCreator.h>
 
 MessageCreator::MessageCreator(std::vector<message> &Outp) :
-MessOutput(Outp) {};
+MessOutput(Outp) {}
 
 
 bool MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const {
@@ -19,6 +19,7 @@ bool MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f
     bull->set_target_y(target.y);
     bull->set_weapon_id(weapon_id);
     MessOutput.push_back(mess);
+    return true;
 }
 
 

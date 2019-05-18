@@ -9,7 +9,7 @@
 #include <memory>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <GameContext.h>
+#include <srv/GameContext.h>
 
 class StateManager;
 

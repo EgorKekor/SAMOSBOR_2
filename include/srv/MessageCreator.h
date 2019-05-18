@@ -7,8 +7,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include <server.h>
-#include <Defines.h>
+#include <srv/server.h>
+#include <res/Defines.h>
 
 class MessageCreator{
 public:

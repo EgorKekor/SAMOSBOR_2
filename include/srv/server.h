@@ -15,9 +15,9 @@
 #include <map>
 #include <utility>
 
-#include "message.h"
-#include "secure_queue.h"
-#include "connection.h"
+#include "res/message.h"
+#include "res/secure_queue.h"
+#include "res/connection.h"
 
 #define PORT	1100
 #define MAX_CLIENTS_QUEUE 5

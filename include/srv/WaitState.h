@@ -5,8 +5,8 @@
 #ifndef SERVER_WAITSTATE_H
 #define SERVER_WAITSTATE_H
 
-#include "State.h"
-#include "message.h"
+#include "srv/State.h"
+#include "res/message.h"
 
 #include <memory>
 #include <string.h>

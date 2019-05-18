@@ -1,4 +1,4 @@
-#include "GameContext.h"
+#include "srv/GameContext.h"
 #include <SFML/Graphics.hpp>
 
 

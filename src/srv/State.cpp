@@ -2,8 +2,8 @@
 // Created by kekor on 10.05.19.
 //
 
-#include "State.h"
-#include "StateManager.h"
+#include "srv/State.h"
+#include "srv/StateManager.h"
 
 using std::make_unique;
 using std::move;

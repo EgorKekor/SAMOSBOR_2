@@ -4,9 +4,9 @@
 #include <stack>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <GameContext.h>
-#include <State.h>
-#include <server.h>
+#include <srv/GameContext.h>
+#include <srv/State.h>
+#include <srv/server.h>
 
 
 class StateManager {

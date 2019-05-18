@@ -11,10 +11,7 @@ include(FindProtobuf)
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIR})
 
-include_directories(.)
-include_directories(include/cli)
-include_directories(include/res)
-include_directories(include/srv)
+include_directories(include)
 
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

@@ -7,7 +7,7 @@
 
 #include "State.h"
 #include "WaitState.h"
-#include "message.h"
+#include "res/message.h"
 #include <iostream>
 
 class GameState : public State {
