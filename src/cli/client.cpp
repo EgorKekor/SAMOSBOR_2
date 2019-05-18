@@ -4,7 +4,7 @@ void client::pop() {
 }
 
 bool client::empty() {
-    server_connection->empty();
+    return server_connection->empty();
 }
 
 const message& client::front() {

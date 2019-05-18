@@ -1,10 +1,11 @@
 #ifndef SERVER_GAMESTATE_H
 #define SERVER_GAMESTATE_H
 
-#include "InteractiveObjects.h"
 #include "Level.h"
 #include "State.h"
 #include "GameEngine.h"
+#include "AllGameObjects.h"
+
 
 class GameState : public State  {
  public:
@@ -18,6 +19,11 @@ class GameState : public State  {
  private:
   Level lvl;
   std::vector<Object> MapObjects;
+
+  std::vector<NPC::NPC_PTR> NPCs;
+  std::vector<Player::PLAYER_PTR> Players;
+  std::vector<Interactive::INTERACTIVE_PTR> InteractiveObjects;
+  std::vector<Bullet::BULLET_PTR> Items;
 
 };
 

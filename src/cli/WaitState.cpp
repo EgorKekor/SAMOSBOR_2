@@ -40,16 +40,16 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
     if (is_ipv4_address()) {
       ipError = false;
       connectionEstablished = context.Client.connect_to_address(address) != 0;
-      while (true) {
-        if (context.Client.empty()) {
-          continue;
-        }
-        message msg = context.Client.front();
-        context.Client.pop();
-        if (msg.flag == START_FLAG) {
-          break;
-        }
-      }
+//      while (true) {
+//        if (context.Client.empty()) {
+//          continue;
+//        }
+//        message msg = context.Client.front();
+//        context.Client.pop();
+//        if (msg.flag == START_FLAG) {
+//          break;
+//        }
+//      }
       if (connectionEstablished) {
         STATE_PTR new_state = make_unique<GameState>(stack, context);
         push_state(move(new_state));
