@@ -32,6 +32,8 @@ class server {
     ~server();
     void lock();
     void unlock();
+    secure_queue<message>& GetInput() {return to_clients;};
+    secure_queue<message>& GetOutput() {return to_server;};
     void push(message);
     void push(std::vector<message>&);
     void pop();

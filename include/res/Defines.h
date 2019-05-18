@@ -6,7 +6,7 @@
 #define SERVER_NAMES_H
 
 namespace ServerMessages {
-    enum action {MAKE_OBJECT, MAKE_ENTITY, MAKE_MOVE, MAKE_DAMAGE, MAKE_BULLET};
+    enum action {MAKE_ENTITY, MAKE_MOVE, MAKE_DAMAGE, MAKE_BULLET, STAR_GAME};
 }
 
 namespace ClientMessages {

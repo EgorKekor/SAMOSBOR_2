@@ -22,7 +22,7 @@ class GameContext {
 
  private:
     server &Server;
-    std::MessageCreator MsgCreator;
+    MessageCreator MsgCreator;
 
     std::vector<message>& MessInput;        //  Это не прямые ссылки на контейнер сервера!
     std::vector<message>& MessOutput;       //  Данные вектора заполняются/считываются, а в конце цикла пушатся/читаются на/с сервер!
