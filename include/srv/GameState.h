@@ -1,0 +1,23 @@
+//
+// Created by kekor on 18.05.19.
+//
+
+#ifndef SERVER_GAMESTATE_H
+#define SERVER_GAMESTATE_H
+
+#include "State.h"
+#include "WaitState.h"
+#include "message.h"
+#include <iostream>
+
+class GameState : public State {
+public:
+    explicit GameState(StateManager &manager_, GameContext &context_);
+    bool handleStateInput() override;
+    bool updateState(sf::Time deltaTime) override;
+    //bool draw_game() override;
+private:
+};
+
+
+#endif //SERVER_GAMESTATE_H

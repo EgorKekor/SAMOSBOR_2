@@ -30,8 +30,8 @@ file(GLOB server_SRC
         "src/srv/*.cpp"
         )
 
-add_executable(client ${client_SRC} include/srv/MessageCreator.h include/res/Defines.h)
-add_executable(server ${server_SRC} src/srv/MessageCreator.cpp)
+add_executable(client ${client_SRC})
+add_executable(server ${server_SRC})
 
 
 target_link_libraries(client proto ${PROTOBUF_LIBRARY})
@@ -41,3 +41,4 @@ FIND_PACKAGE(SFML 2 REQUIRED system window graphics network audio)
 
 INCLUDE_DIRECTORIES(${SFML_INCLUDE_DIR})
 TARGET_LINK_LIBRARIES(client ${SFML_LIBRARIES} tinyxml)
+TARGET_LINK_LIBRARIES(server ${SFML_LIBRARIES} tinyxml)
