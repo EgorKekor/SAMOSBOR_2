@@ -17,6 +17,7 @@ public:
     bool SendDamage(int damage, size_t object_type, size_t object_id);
     bool SendEntity(size_t id, size_t type, size_t name, sf::Vector2f position, int creator_id = -1);
     bool SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos);
+    bool SendStart();
 
 private:
     std::vector<message>& MessOutput;

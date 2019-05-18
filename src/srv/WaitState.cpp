@@ -28,10 +28,8 @@ bool WaitState::updateState(sf::Time deltaTime) {
 
 
 bool WaitState::SendStartMessage(server &srv) const {
-
-// TO_DO: Получить из context MessageCreator, сгенерировать messages
-// и отправить всем игрокам (MessageCreator пушит месседжи в context.MessOutput<>)
-// затем месседжи на отправку получить так: context.GetMessOutput()
+    context.GetMsgCreator().SendStart();
+    srv.push(context.GetMessOutput());
 }
 
 //bool WaitState::drawState() {
