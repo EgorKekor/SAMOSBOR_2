@@ -11,7 +11,7 @@ int GameEngine::run() {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time const TimePerFrame = sf::seconds(1.f / 60.f);
-    while (Window.isOpen() && running) {
+    while (running) {
         handleInput();
         timeSinceLastUpdate += clock.restart();
         if (timeSinceLastUpdate > TimePerFrame) {
@@ -26,14 +26,15 @@ int GameEngine::run() {
 
 
 int GameEngine::handleInput() {
-    sf::Event event;
     while (!Server.empty()) {
-        Window.pollEvent(event);
+        Manager.handleInput();
+    }
+    sf::Event event;
+    while (Window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             Window.close();
             running = false;
-        } else {
-            Manager.handleInput();
+            return 0;
         }
     }
     return 0;
