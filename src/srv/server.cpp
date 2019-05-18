@@ -64,7 +64,7 @@ void * distribution(void * arg) {
         start_connects_iteration:
         for(auto i = srv->connects.begin(); i != srv->connects.end(); i++) {
             while (i->second->empty() == false) {
-                if (i->second->front().flag() & CONNECTION_ABORTED) {
+                if (i->second->front().flag() == CONNECTION_ABORTED) {
                     i->second->get_message();
                     delete i->second;
                     srv->connects.erase(i);
