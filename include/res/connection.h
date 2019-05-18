@@ -28,9 +28,9 @@ class connection {
     std::vector<message> get_msg_vector();
     const message & front();
     void push(message);
-    const bool operator < (const connection &);
-    const bool operator > (const connection &);
-    const bool operator == (const connection &);
+    bool operator < (const connection &);
+    bool operator > (const connection &);
+    bool operator == (const connection &);
     int get_id() const;
     void leave();
  private:

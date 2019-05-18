@@ -3,6 +3,10 @@ void client::pop() {
     server_connection->get_message();
 }
 
+bool client::empty() {
+    return server_connection->empty();
+}
+
 const message& client::front() {
     return server_connection->front();
 }

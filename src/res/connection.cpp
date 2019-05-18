@@ -7,7 +7,7 @@ std::vector<message> connection::get_msg_vector() {
 
 void connection::leave() {
     std::cout << "somebody leave con thread\n";
-    if (actual == true) {
+    if (actual) {
         actual = false;
     } else {
         message msg;
@@ -19,11 +19,11 @@ void connection::leave() {
 }
 
 void * listening(void * arg) {
-    connection * con = static_cast<connection *>(arg);
+    auto * con = static_cast<connection *>(arg);
     char buff[MAX_LEN_INPUT_STR];
     int lenght = 0;
     message msg;
-    while (1) {
+    while (true) {
         lenght = recv(con->sock_fd, buff, MAX_LEN_INPUT_STR, 0);//MSG_WAITALL);
         if (lenght <= 0) {
             std::cerr << "error input on socket" << con->id << std::endl;
@@ -34,7 +34,7 @@ void * listening(void * arg) {
         msg.ParseFromString(in_message);
         msg.set_id(con->get_id());
         con->in.push(msg);        
-        if (con->actual == false) {
+        if (!con->actual) {
             con->leave();
             std::cout << "end listening\n";
             return nullptr;
@@ -50,9 +50,9 @@ void pipe(int signal) {
 }
 
 void * sending(void * arg) {
-    connection * con = static_cast<connection *>(arg);
+    auto * con = static_cast<connection *>(arg);
     signal(SIGPIPE, pipe);
-    while(1) {
+    while(true) {
         int error = 0;
         socklen_t len = sizeof (error);
         int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);
@@ -61,7 +61,7 @@ void * sending(void * arg) {
             con->leave();
             return nullptr;
         }
-        while (con->out.empty() == false) {
+        while (!con->out.empty()) {
             std::string out_message;
             con->out.front().SerializeToString(&out_message);
             std::cout << con->out.front().flag() << " is out flag\n" << out_message.c_str() << std::endl;
@@ -73,7 +73,7 @@ void * sending(void * arg) {
                 return nullptr;
             }   
         }
-        if (con->actual == false) {
+        if (!con->actual) {
             con->leave();
             std::cout << "end sending\n";
             return nullptr;
@@ -86,13 +86,13 @@ connection::connection(int sock, int in_id) {
     actual = true;
     sock_fd = sock;
     id = in_id;
-    struct timeval tv;
+    struct timeval tv{};
     tv.tv_sec = 5;
     tv.tv_usec = 0;
     sem_init(&semaphore, 0, 1);
     setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
-    pthread_create(&listen_thread, NULL, listening, static_cast<void*>(this));
-    pthread_create(&send_thread, NULL, sending, static_cast<void*>(this));
+    pthread_create(&listen_thread, nullptr, listening, static_cast<void*>(this));
+    pthread_create(&send_thread, nullptr, sending, static_cast<void*>(this));
 }
 
 bool connection::empty() {
@@ -113,15 +113,15 @@ void connection::push(message msg) {
     sem_post(&semaphore);
 }
 
-const bool operator < (const connection & a, const connection & b) {
+bool operator < (const connection & a, const connection & b) {
     return a.get_id() < b.get_id();
 }
 
-const bool operator > (const connection & a, const connection & b) {
+bool operator > (const connection & a, const connection & b) {
     return a.get_id() > b.get_id();
 }
 
-const bool operator == (const connection & a, const connection & b) {
+bool operator == (const connection & a, const connection & b) {
     return a.get_id() == b.get_id();
 }
 
