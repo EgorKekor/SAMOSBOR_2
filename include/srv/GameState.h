@@ -6,9 +6,10 @@
 #define SERVER_GAMESTATE_H
 
 #include "State.h"
-#include "WaitState.h"
+#include "srv/WaitState.h"
 #include "res/message.h"
 #include <iostream>
+#include <memory>
 
 class GameState : public State {
 public:
