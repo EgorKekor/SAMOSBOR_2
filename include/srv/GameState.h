@@ -7,17 +7,20 @@
 
 #include "State.h"
 #include "srv/WaitState.h"
+#include "srv/Player.h"
 #include "res/message.h"
 #include <iostream>
 #include <memory>
 
 class GameState : public State {
 public:
+    using PLAYER_PTR = std::unique_ptr<Player>;
     explicit GameState(StateManager &manager_, GameContext &context_);
     void handleStateInput() override;
     void updateState(sf::Time deltaTime) override;
     //bool draw_game() override;
 private:
+    std::map<size_t, PLAYER_PTR> Players;
 };
 
 

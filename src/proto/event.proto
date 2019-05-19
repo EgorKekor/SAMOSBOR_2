@@ -4,14 +4,14 @@ package msg;
 message main {
     int32 id = 1;
     int32 flag = 2;
-    repeated int32 client_command = 3; // id of client commands
     // servers commands:
     repeated make_bullet bullet = 4;  
     repeated make_move move = 5;
     repeated make_entity entity = 6;
     repeated take_damage damage = 7;
+    // clients commands:
     repeated client_mouse mouse = 8;
-    repeated client_key key = 9;
+    repeated int32 key = 9;
 }
 
 message make_move {
@@ -44,11 +44,6 @@ message make_bullet {
     float target_x = 3;
     float target_y = 4;
     int32 weapon_id = 5;
-}
-
-
-message client_key {
-    int32 key = 1;
 }
 
 message client_mouse {
