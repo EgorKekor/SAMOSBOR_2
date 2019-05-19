@@ -1,4 +1,5 @@
 #include "cli/AllStates.h"
+#include "res/Defines.h"
 
 #include <arpa/inet.h>
 
@@ -40,26 +41,23 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
     if (is_ipv4_address()) {
       ipError = false;
       connectionEstablished = context.Client.connect_to_address(address) == 0;
-//      while (true) {
-//        if (context.Client.empty()) {
-//          continue;
-//        }
-//        message msg = context.Client.front();
-//        context.Client.pop();
-//        if (msg.flag == START_FLAG) {
-//          break;
-//        }
-//      }
       if (connectionEstablished) {
+        while (true) {
+          if (context.Client.empty()) {
+            continue;
+          }
+          message msg = context.Client.front();
+          context.Client.pop();
+          if (msg.flag() == ServerMessages::START_GAME) {
+            break;
+          }
+        }
         STATE_PTR new_state = make_unique<GameState>(stack, context);
         push_state(move(new_state));
       } else {
         ipError = true;
         address.clear();
       }
-    } else {
-      ipError = true;
-      address.clear();
     }
   }
 }
