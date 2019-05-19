@@ -10,7 +10,7 @@ MessOutput(Outp) {}
 
 void MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const {
     message mess;
-    mess.set_id(0);
+    mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_BULLET);
     msg::make_bullet *bull = mess.add_bullet();
     bull->set_bullet_id(bullet_id);
@@ -24,7 +24,7 @@ void MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f
 
 void MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id) const {
     message mess;
-    mess.set_id(0);
+    mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_DAMAGE);
     msg::take_damage *dmg = mess.add_damage();
     dmg->set_damage(damage);
@@ -34,12 +34,12 @@ void MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id
 }
 
 
-void MessageCreator::SendEntity(size_t id, size_t type, size_t name, sf::Vector2f position, int creator_id) const {
+void MessageCreator::SendEntity(size_t entity_id, size_t type, size_t name, sf::Vector2f position, int creator_id) const {
     message mess;
-    mess.set_id(0);
+    mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_ENTITY);
     msg::make_entity *ent = mess.add_entity();
-    ent->set_id(id);
+    ent->set_id(entity_id);
     ent->set_type(type);
     ent->set_name(name);
     ent->set_creator_id(creator_id);
@@ -51,7 +51,7 @@ void MessageCreator::SendEntity(size_t id, size_t type, size_t name, sf::Vector2
 
 void MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos) const {
     message mess;
-    mess.set_id(0);
+    mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_MOVE);
     msg::make_move *ent = mess.add_move();
     ent->set_object_id(object_id);

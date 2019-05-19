@@ -45,8 +45,6 @@ void Player::TakeShot(float x, float y, bool isPressed) {
 
 void Player::drawObject() {
 
-}
-
 void Player::updateObject(sf::Time deltaTime) {
     if (mIsMovingUp) {
         dx = 0;
