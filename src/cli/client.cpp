@@ -7,6 +7,10 @@ bool client::empty() {
     return server_connection->empty();
 }
 
+std::vector<message> client::GetInput() {
+    return server_connection->get_msg_vector();
+}
+
 const message& client::front() {
     return server_connection->front();
 }
