@@ -18,11 +18,10 @@ public:
     virtual void updateObject() = 0;
 protected:
     GameContext &context;
+
     size_t id;
     size_t type;
     int health;
-    size_t width;
-    size_t height;
     float x;
     float y;
 };
