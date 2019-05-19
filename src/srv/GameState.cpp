@@ -9,8 +9,8 @@ using STATE_PTR = std::unique_ptr<State>;
 GameState::GameState(StateManager &manager_, GameContext &context_) : State(manager_, context_) {
     Players.insert(std::make_pair(1, std::make_unique<Player>(context, sf::Vector2f(100, 100), 1)));
     Players.insert(std::make_pair(2, std::make_unique<Player>(context, sf::Vector2f(200, 200), 2)));
-    context.GetMsgCreator().SendEntity(MULTICAST_ID, 1, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(100, 100));
-    context.GetMsgCreator().SendEntity(MULTICAST_ID, 2, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(200, 200));
+    context.GetMsgCreator().SendEntity(1, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(100, 100));
+    context.GetMsgCreator().SendEntity(2, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(200, 200));
     std::cout << "Режим игры\n";
 }
 
