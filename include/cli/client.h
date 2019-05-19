@@ -5,9 +5,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <unistd.h>
 #include <vector>
 #include <string>
@@ -15,9 +15,9 @@
 #include <map>
 #include <utility>
 
-#include "message.h"
-#include "secure_queue.h"
-#include "connection.h"
+#include "res/message.h"
+#include "res/secure_queue.h"
+#include "res/connection.h"
 
 
 #define PORT 1100
@@ -30,7 +30,7 @@ class client {
     const message& front();
     void pop();
     bool empty();
-    int connect_to_address(std::string);
+    int connect_to_address(const std::string&);
  private:
     int sock_fd;
     struct sockaddr_in my_address;

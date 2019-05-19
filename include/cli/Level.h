@@ -9,10 +9,10 @@
 #include "tinyxml2.h"
 
 struct Object {
-  int GetPropertyInt(std::string name1);                   //номер свойства объекта в нашем списке
-  float GetPropertyFloat(std::string name2);
+  int GetPropertyInt(const std::string& name1);                   //номер свойства объекта в нашем списке
+  float GetPropertyFloat(const std::string& name2);
 
-  std::string GetPropertyString(std::string name3);
+  std::string GetPropertyString(const std::string& name3);
 
   std::string name;                                       //объявили переменную name типа string
   std::string type;                                       //а здесь переменную type типа string

@@ -1,4 +1,4 @@
-#include "GameObject.h"
+#include "cli/GameObject.h"
 
 sf::Vector2f GameObject::getPossition() {
   return sf::Vector2f(x, y);

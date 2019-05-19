@@ -1,4 +1,4 @@
-#include "GameEngine.h"
+#include "cli/GameEngine.h"
 
 bool GameEngine::running_ = true;
 

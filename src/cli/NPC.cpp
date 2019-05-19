@@ -1,4 +1,4 @@
-#include "NPC.h"
+#include "cli/NPC.h"
 
 
 void NPC::drawObject() {

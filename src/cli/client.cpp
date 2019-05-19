@@ -1,4 +1,4 @@
-#include "client.h"
+#include "cli/client.h"
 void client::pop() {
     server_connection->get_message();
 }
@@ -21,7 +21,7 @@ client::~client() {
     }
 }
 
-int client::connect_to_address(std::string address) {
+int client::connect_to_address(const std::string& address) {
     int res = inet_pton(AF_INET, address.c_str(), &my_address.sin_addr);
     if (res <= 0) {
         std::cerr << "error of ip:" << res << std::endl;

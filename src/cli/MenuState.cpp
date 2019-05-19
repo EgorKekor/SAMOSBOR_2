@@ -1,6 +1,6 @@
-#include <include/cli/MenuState.h>
+#include <cli/MenuState.h>
 
-#include "AllStates.h"
+#include "cli/AllStates.h"
 
 using std::make_unique;
 using std::move;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "GameEngine.h"
+#include "cli/GameEngine.h"
 
 int main() {
   GameEngine game;

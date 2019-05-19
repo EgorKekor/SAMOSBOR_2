@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include <GameContext.h>
+#include <cli/GameContext.h>
 
 class StateManager;
 

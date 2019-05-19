@@ -1,5 +1,5 @@
-#include "AllStates.h"
-#include "GameState.h"
+#include "cli/AllStates.h"
+#include "cli/GameState.h"
 
 using std::make_unique;
 using STATE_PTR = std::unique_ptr<State>;

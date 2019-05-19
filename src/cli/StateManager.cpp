@@ -1,6 +1,6 @@
-#include "StateManager.h"
-#include "AllStates.h"
-#include "State.h"
+#include "cli/StateManager.h"
+#include "cli/AllStates.h"
+#include "cli/State.h"
 
 using std::make_unique;
 using std::move;

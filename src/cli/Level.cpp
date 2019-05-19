@@ -1,21 +1,21 @@
 #include <iostream>
-#include <include/cli/Level.h>
+#include <cli/Level.h>
 #include "tinyxml.h"
 
 using namespace std;
 using namespace sf;
 
 //возвращаем номер свойства в нашем списке
-int Object::GetPropertyInt(std::string name1) {
+int Object::GetPropertyInt(const std::string& name1) {
   return atoi(properties[name1].c_str());
 }
 
-float Object::GetPropertyFloat(std::string name2) {
+float Object::GetPropertyFloat(const std::string& name2) {
   return (float) strtod(properties[name2].c_str(), nullptr);
 }
 
 //получить имя в виде строки.вроде понятно
-std::string Object::GetPropertyString(std::string name3) {
+std::string Object::GetPropertyString(const std::string& name3) {
   return properties[name3];
 }
 
@@ -233,9 +233,9 @@ bool Level::LoadFromFile(const std::string &filename) //двоеточия-об�
 
 Object Level::GetObject(const std::string &name) {
   // только первый объект с заданным именем
-  for (size_t i = 0; i < objects.size(); i++) {
-    if (objects[i].name == name)
-      return objects[i];
+  for (auto & object : objects) {
+    if (object.name == name)
+      return object;
   }
   exit(-1);
 }
@@ -243,9 +243,9 @@ Object Level::GetObject(const std::string &name) {
 std::vector<Object> Level::GetObjects(const std::string &name) {
   // все объекты с заданным именем
   std::vector<Object> vec;
-  for (size_t i = 0; i < objects.size(); i++) {
-    if (objects[i].name == name)
-      vec.push_back(objects[i]);
+  for (auto & object : objects) {
+    if (object.name == name)
+      vec.push_back(object);
   }
   return vec;
 }
@@ -260,9 +260,9 @@ sf::Vector2i Level::GetTileSize() {
 
 void Level::Draw(sf::RenderWindow &window) {
   // рисуем все тайлы (объекты не рисуем!)
-  for (size_t layer = 0; layer < layers.size(); layer++)
-    for (size_t tile = 0; tile < layers[layer].tiles.size(); tile++)
-      window.draw(layers[layer].tiles[tile]);
+  for (auto & layer : layers)
+    for (size_t tile = 0; tile < layer.tiles.size(); tile++)
+      window.draw(layer.tiles[tile]);
 }
 
 bool Level::increase_opaciti(int layNum, int inc) {
