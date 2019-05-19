@@ -8,26 +8,27 @@
 #include <res/message.h>
 #include <vector>
 #include <srv/MessageCreator.h>
+#include <res/TextureManager.h>
 
 class GameContext {
- public:
-  GameContext(sf::RenderWindow &Window_, server &server_);
+public:
+    GameContext(sf::RenderWindow &Window_, server &server_);
+    const MessageCreator &GetMsgCreator() const { return MsgCreator; };
+    const sf::RenderWindow &GetWindow() const { return Window; };
 
-  const MessageCreator &GetMsgCreator() const { return MsgCreator; };
-  const sf::RenderWindow &GetWindow() const { return Window; };
-  std::vector<message> &GetMessInput() { return MessInput; };
-  std::vector<message> &GetMessOutput() { return MessOutput; };
-  server &GetServer() const { return Server; };
+    std::vector<message> &GetMessInput() { return MessInput; };
+    std::vector<message> &GetMessOutput() { return MessOutput; };
+    server &GetServer() const { return Server; };
 
- private:
+private:
+    TextureManager textureManager;
+    std::vector<message> MessInput;        //  Это не прямые ссылки на контейнер сервера!
+    sf::RenderWindow &Window;
+    server &Server;
+    MessageCreator MsgCreator;
+    std::vector<message> MessOutput;    //  Данные вектора заполняются/считываются, а в конце цикла пушатся/читаются на/с сервер!
 
-  std::vector<message> MessInput;        //  Это не прямые ссылки на контейнер сервера!
-  sf::RenderWindow &Window;
-  server &Server;
-  MessageCreator MsgCreator;
-  std::vector<message> MessOutput;    //  Данные вектора заполняются/считываются, а в конце цикла пушатся/читаются на/с сервер!
-
-  sf::View View;
+    sf::View View;
 };
 
 #endif

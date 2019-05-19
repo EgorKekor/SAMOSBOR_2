@@ -2,10 +2,11 @@
 #define SERVER_GAMEOBJECT_H
 
 #include <SFML/Graphics.hpp>
+#include <srv/GameContext.h>
 
 class GameObject {
 public:
-    GameObject(sf::Vector2f position, size_t id_);
+    GameObject(GameContext &cnt, sf::Vector2f position, size_t id_);
 
     sf::Vector2f getPossition();
     int getHealth();
@@ -16,6 +17,7 @@ public:
     virtual void drawObject() = 0;
     virtual void updateObject() = 0;
 protected:
+    GameContext &context;
     size_t id;
     size_t type;
     int health;
