@@ -3,11 +3,25 @@
 
 using std::make_unique;
 using STATE_PTR = std::unique_ptr<State>;
+using PLAYER_PTR = std::unique_ptr<Player>;
 
 GameState::GameState(StateManager *stack, GameContext &context_) : State(stack, context_) {
   lvl.LoadFromFile("../Graphics/map/map.tmx");
   MapObjects = lvl.GetAllObjects();
+  while (true) {
+    if (context.Client.empty()) {
+      continue;
+    }
+    std::vector<message> input = context.Client.GetInput();
 
+    for (auto & msg : input) {
+      if (msg.flag() == ServerMessages::MAKE_ENTITY) {
+        PLAYER_PTR play = std::make_unique<Player>(context, sf::Vector2f(msg.entity(0).x(), msg.entity(0).y()), msg.entity(0).id());
+        break;
+      }
+    }
+    break;
+  }
 }
 void GameState::handle_input(sf::Keyboard::Key key, bool isPressed) {
   if ((key == sf::Keyboard::Escape)&&(isPressed)) {

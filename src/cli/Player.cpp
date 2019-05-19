@@ -1,7 +1,16 @@
 #include "cli/Player.h"
 
-void Player::drawObject() {
+Player::Player(GameContext &context_, sf::Vector2f position, size_t id_) :
+    GameObject(context_, position, id_) {
+  type = Entityes::type::PLAYER;
+  health = 1000;
+  circle.setFillColor(sf::Color{ 0x006495FF });
+}
 
+void Player::drawObject() {
+  setPlayerView(x, y);
+  circle.setPosition({ x, y });
+  context.mWindow->draw(circle);
 }
 
 void Player::updateObject() {
@@ -22,12 +31,16 @@ void Player::handle_actor_input(sf::Mouse::Button /*mouse*/, bool /*isPressed*/)
 void Player::handle_actor_input(sf::Keyboard::Key key, bool isPressed) {
   if (mainHero) {
     if (key == sf::Keyboard::W) {
+      isMovingUp = isPressed;
       context.messageCreator.SendKeyCommand(ClientMessages::key::W, isPressed);
     } else if (key == sf::Keyboard::S) {
+      isMovingLeft = isPressed;
       context.messageCreator.SendKeyCommand(ClientMessages::key::S, isPressed);
     } else if (key == sf::Keyboard::A) {
+      isMovingDown = isPressed;
       context.messageCreator.SendKeyCommand(ClientMessages::key::A, isPressed);
     } else if (key == sf::Keyboard::D) {
+      isMovingRight = isPressed;
       context.messageCreator.SendKeyCommand(ClientMessages::key::D, isPressed);
     } else if (key == sf::Keyboard::Num1) {
       context.messageCreator.SendKeyCommand(ClientMessages::key::NUM1, isPressed);
@@ -40,3 +53,12 @@ void Player::handle_actor_input(sf::Keyboard::Key key, bool isPressed) {
     }
   }
 }
+
+void Player::setPlayerView(float x, float y) {
+  float tempX = x /*+ width/2*/;
+  float tempY = y /*+ height/2*/;
+  context.view.setCenter(tempX, tempY);
+  context.mWindow->setView(context.view);
+}
+
+
