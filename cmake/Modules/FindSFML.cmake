@@ -4,7 +4,7 @@
 # Usage
 # -----
 #
-# When you try to locate the SFML libraries, you must specify which modules you want to use (system, window, graphics, network, audio, mainHero).
+# When you try to locate the SFML libraries, you must specify which modules you want to use (system, window, graphics, network, audio, main).
 # If none is given, the SFML_LIBRARIES variable will be empty and you'll end up linking to nothing.
 # example:
 #   find_package(SFML COMPONENTS graphics window system) // find the graphics, window and system modules
@@ -38,7 +38,7 @@
 # ------
 #
 # This script defines the following variables:
-# - For each specified module XXX (system, window, graphics, network, audio, mainHero):
+# - For each specified module XXX (system, window, graphics, network, audio, main):
 #   - SFML_XXX_LIBRARY_DEBUG:   the name of the debug library of the xxx module (set to SFML_XXX_LIBRARY_RELEASE is no debug version is found)
 #   - SFML_XXX_LIBRARY_RELEASE: the name of the release library of the xxx module (set to SFML_XXX_LIBRARY_DEBUG is no release version is found)
 #   - SFML_XXX_LIBRARY:         the name of the library to link to for the xxx module (includes both debug and optimized names if necessary)
@@ -122,7 +122,7 @@ foreach(FIND_SFML_COMPONENT ${SFML_FIND_COMPONENTS})
     string(TOUPPER ${FIND_SFML_COMPONENT} FIND_SFML_COMPONENT_UPPER)
     set(FIND_SFML_COMPONENT_NAME sfml-${FIND_SFML_COMPONENT_LOWER})
 
-    # no suffix for sfml-mainHero, it is always a static library
+    # no suffix for sfml-main, it is always a static library
     if(FIND_SFML_COMPONENT_LOWER STREQUAL "main")
         # release library
         find_library(SFML_${FIND_SFML_COMPONENT_UPPER}_LIBRARY_RELEASE
