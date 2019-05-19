@@ -12,7 +12,7 @@ namespace ServerMessages {
 }
 
 namespace ClientMessages {
-    enum flag {};
+    enum flag {KEY_PRESSED, MOUSE_PRESSED};
 }
 
 

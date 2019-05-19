@@ -9,6 +9,7 @@ class NPC : public GameObject {
  public:
   using NPC_PTR = std::unique_ptr<NPC>;
 
+  sf::FloatRect getRect() override;
   void drawObject() override;
   void updateObject() override;
 };

@@ -9,6 +9,7 @@ class Player: public GameObject {
  public:
   using PLAYER_PTR = std::unique_ptr<Player>;
 
+  sf::FloatRect getRect() override;
   void drawObject() override;
   void updateObject() override;
 };

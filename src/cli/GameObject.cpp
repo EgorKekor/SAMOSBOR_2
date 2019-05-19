@@ -1,16 +1,17 @@
 #include "cli/GameObject.h"
 
+GameObject::GameObject(sf::Vector2f position, size_t id_) : x(position.x), y(position.y), id(id_) {
+}
+
+
 sf::Vector2f GameObject::getPossition() {
   return sf::Vector2f(x, y);
 }
-sf::FloatRect GameObject::getRect() {
-  return sf::FloatRect();
-}
-int GameObject::getId() {
+size_t GameObject::getId() {
   return id;
 }
-std::string GameObject::getType() {
-  return std::__cxx11::string(type);
+size_t GameObject::getType() {
+  return type;
 }
 int GameObject::getHealth() {
   return health;

@@ -5,20 +5,22 @@
 
 class GameObject {
  public:
-  virtual sf::Vector2f getPossition() = 0;
+  GameObject(sf::Vector2f position, size_t id_);
+
+  sf::Vector2f getPossition();
+  int getHealth();
+  size_t getId();
+  size_t getType();
+
   virtual sf::FloatRect getRect() = 0;
-  virtual int getId() = 0;
-  virtual std::string getType() = 0;
-  virtual int getHealth() = 0;
   virtual void drawObject() = 0;
   virtual void updateObject() = 0;
-
  protected:
-  int id;
-  std::string type;
+  size_t id;
+  size_t type;
   int health;
-  int width;
-  int height;
+  size_t width;
+  size_t height;
   float x;
   float y;
 };

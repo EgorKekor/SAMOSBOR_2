@@ -10,6 +10,8 @@ message main {
     repeated make_move move = 5;
     repeated make_entity entity = 6;
     repeated take_damage damage = 7;
+    repeated client_mouse mouse = 8;
+    repeated client_key key = 9;
 }
 
 message make_move {
@@ -42,5 +44,15 @@ message make_bullet {
     float target_x = 3;
     float target_y = 4;
     int32 weapon_id = 5;
+}
+
+
+message client_key {
+    int32 key = 1;
+}
+
+message client_mouse {
+    float mouse_x = 1;
+    float mouse_y = 2;
 }
 
