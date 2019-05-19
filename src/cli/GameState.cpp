@@ -31,6 +31,25 @@ void GameState::handle_input(char /*symbol*/) {
 
 }
 void GameState::update(sf::Time /*deltaTime*/) {
+  std::vector<message> input = context.Client.GetInput();
+  for (auto msg = input.begin(); msg != input.end(); ++msg) {
+    if ((*msg).move_size() != 0) {
+      for (auto player = Players.begin(); player != Players.end(); ++player) {
+        if ((*player)->getId() == (size_t)(*msg).move(0).object_id()) {
+          (*player)->SetX((*msg).move(0).new_x());
+          (*player)->SetY((*msg).move(0).new_y());
+          break;
+        }
+      }
+    } else if ((*msg).entity_size() != 0) {
+
+    } else if ((*msg).bullet_size() != 0) {
+
+    } else if ((*msg).damage_size() != 0) {
+
+    }
+  }
+
   for (auto npc = NPCs.rbegin(); npc != NPCs.rend(); npc++) {
     if ((*npc)->getHealth() > 0) {
       (*npc)->updateObject(/*deltaTime*/);
