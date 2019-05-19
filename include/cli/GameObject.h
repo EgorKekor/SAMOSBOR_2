@@ -6,6 +6,8 @@
 
 class GameObject {
  public:
+    void SetX(float x_) {x = x_;};
+    void SetY(float y_) {y = y_;};
   GameObject(GameContext &cnt, sf::Vector2f position, size_t id_);
 
   sf::Vector2f getPossition();
