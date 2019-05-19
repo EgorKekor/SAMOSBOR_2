@@ -18,7 +18,7 @@ public:
     sf::Time fireReactionTimer;
 
     sf::Vector2f mpuseTouch;
-    sf::Vector2f mpuseUnTouch;
+    sf::Vector2f museUnTouch;
     size_t current_weapon;
     size_t speed;
     float dx;
