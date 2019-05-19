@@ -30,5 +30,8 @@ void GameState::handleStateInput() {
     }
 }
 
-void GameState::updateState(sf::Time /*deltaTime*/) {
+void GameState::updateState(sf::Time deltaTime) {
+    for (auto player = Players.begin(); player != Players.end(); ++player) {
+        player->second->updateObject(deltaTime);
+    }
 }
