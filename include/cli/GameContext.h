@@ -6,10 +6,12 @@
 #include "cli/TextureHolder.h"
 #include "client.h"
 #include "cli/MessageCreator.h"
+#include "res/TextureManager.h"
 
 class GameContext {
  public:
   explicit GameContext(sf::RenderWindow &wnd);
+
 
   sf::RenderWindow *mWindow;
   sf::View view;
@@ -19,7 +21,7 @@ class GameContext {
   std::vector<message> messOutput;
   std::vector<message> messInput;
   MessageCreator messageCreator;
-
+  TextureManager textureManager;
 
   //TextureHolder allUnitsTextures;
   // MusicPlayer music;

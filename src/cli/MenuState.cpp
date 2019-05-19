@@ -92,7 +92,7 @@ void MenuState::handle_input(sf::Mouse::Button mouse, bool isPressed) {
     if (menuNum == 1) {
       pop_state();
       if (stack->get_states_size() == 0) {
-        STATE_PTR new_state = make_unique<WaitState>(stack, context);
+        STATE_PTR new_state = make_unique<GameState>(stack, context);
         push_state(move(new_state));
       }
     } else if (menuNum == 3) {
