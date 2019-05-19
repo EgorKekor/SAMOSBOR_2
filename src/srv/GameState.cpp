@@ -22,10 +22,10 @@ void GameState::handleStateInput() {
             continue;
         }
         if ((*i).mouse_size() != 0) {
-            Players[(*i).id()]->TakeShot((*i).mouse(0).mouse_x(), (*i).mouse(0).mouse_y()); // take a shot to mouse_x, mouse_y coordinates
+            Players[(*i).id()]->TakeShot((*i).mouse(0).mouse_x(), (*i).mouse(0).mouse_y(), (*i).mouse(0).is_pressed()); // take a shot to mouse_x, mouse_y coordinates
         }
         if ((*i).key_size() != 0) {
-            Players[(*i).id()]->PressKey(size_t((*i).key(0)), true); // press key
+            Players[(*i).id()]->PressKey(size_t((*i).key(0).key()), bool((*i).key(0).is_pressed())); // press key
         }
     }
 }

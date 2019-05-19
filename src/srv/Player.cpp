@@ -18,7 +18,7 @@ void Player::updateObject() {
 
 }
 
-void Player::TakeShot(float x, float y) {
+void Player::TakeShot(float x, float y, bool is_pressed) {
     return;
 }
 

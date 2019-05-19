@@ -39,7 +39,7 @@ public:
     sf::FloatRect getRect() override;
     void drawObject() override;
     void updateObject() override;
-    void TakeShot(float x, float y);
+    void TakeShot(float x, float y, bool is_pressed);
     void PressKey(size_t key, bool isPressed);
 protected:
 
