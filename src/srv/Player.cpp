@@ -1,9 +1,9 @@
 #include "srv/Player.h"
 
 Player::Player(GameContext &cnt, sf::Vector2f position, size_t id_) :
-GameObject(cnt, position, id_), body(context.GetTextureManager().GetPlayerSize()),
-mSprite(context.GetTextureManager().GetPlayerSprites()) {
-}
+GameObject(cnt, position, id_), body(context.GetTextureManager().GetPlayerSize())
+//mSprite(context.GetTextureManager().GetPlayerSprites())
+{}
 
 
 void Player::PressKey(size_t key, bool isPressed) {
@@ -36,8 +36,8 @@ void Player::TakeShot(float x, float y, bool isPressed) {
         mpuseTouch.x = x;
         mpuseTouch.y = y;
     } else {
-        mpuseUnTouch.x = x;
-        mpuseUnTouch.y = y;
+        museUnTouch.x = x;
+        museUnTouch.y = y;
     }
 
 }
@@ -48,6 +48,8 @@ void Player::drawObject() {
 }
 
 void Player::updateObject(sf::Time deltaTime) {
+    dx = dy = 0;
+
     if (mIsMovingUp) {
         dx = 0;
         dy = -(speed);
@@ -71,6 +73,9 @@ void Player::updateObject(sf::Time deltaTime) {
     x = x + (dx * deltaTime.asSeconds());
     y = y + (dy * deltaTime.asSeconds());
 
+    if (dx != 0 || dy != 0) {
+        context.GetMsgCreator().SendMoving(id, type, sf::Vector2f(x, y));
+    }
 }
 
 
