@@ -4,7 +4,7 @@
 void NPC::drawObject() {
 
 }
-void NPC::updateObject() {
+void NPC::updateObject(sf::Time deltaTime) {
 
 }
 sf::FloatRect NPC::getRect() {

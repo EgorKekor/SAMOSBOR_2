@@ -2,7 +2,7 @@
 void Bullet::drawObject() {
 
 }
-void Bullet::updateObject() {
+void Bullet::updateObject(sf::Time /*deltaTime*/) {
 
 }
 sf::FloatRect Bullet::getRect() {

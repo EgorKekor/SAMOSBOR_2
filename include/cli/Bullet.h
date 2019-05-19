@@ -11,7 +11,7 @@ class Bullet: public GameObject {
 
   sf::FloatRect getRect() override;
   void drawObject() override;
-  void updateObject() override;
+  void updateObject(sf::Time deltaTime) override;
 };
 
 #endif //SERVER_BULLET_H

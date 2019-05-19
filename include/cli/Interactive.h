@@ -10,7 +10,7 @@ class Interactive: public GameObject {
   using INTERACTIVE_PTR = std::unique_ptr<Interactive>;
 
   void drawObject() override;
-  void updateObject() override;
+  void updateObject(sf::Time deltaTime) override;
 };
 
 #endif //SERVER_INTERACTIVE_H

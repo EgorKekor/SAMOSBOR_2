@@ -3,6 +3,6 @@
 void Interactive::drawObject() {
 
 }
-void Interactive::updateObject() {
+void Interactive::updateObject(sf::Time deltaTime) {
 
 }
