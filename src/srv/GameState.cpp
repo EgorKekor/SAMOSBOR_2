@@ -25,7 +25,7 @@ void GameState::handleStateInput() {
             Players[(*i).id()]->TakeShot((*i).mouse(0).mouse_x(), (*i).mouse(0).mouse_y()); // take a shot to mouse_x, mouse_y coordinates
         }
         if ((*i).key_size() != 0) {
-            Players[(*i).id()]->PressKey((*i).key(0)); // press key
+            Players[(*i).id()]->PressKey(size_t((*i).key(0)), true); // press key
         }
     }
 }
