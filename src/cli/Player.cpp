@@ -4,7 +4,7 @@ void Player::drawObject() {
 
 }
 
-void Player::updateObject() {
+void Player::updateObject(sf::Time deltaTime) {
 
 }
 
