@@ -30,7 +30,7 @@ void GameState::handle_input(sf::Mouse::Button mouse, bool isPressed) {
 void GameState::handle_input(char /*symbol*/) {
 
 }
-void GameState::update(sf::Time /*deltaTime*/) {
+void GameState::update(sf::Time deltaTime) {
   std::vector<message> input = context.Client.GetInput();
   for (auto msg = input.begin(); msg != input.end(); ++msg) {
     if ((*msg).move_size() != 0) {
@@ -52,25 +52,25 @@ void GameState::update(sf::Time /*deltaTime*/) {
 
   for (auto npc = NPCs.rbegin(); npc != NPCs.rend(); npc++) {
     if ((*npc)->getHealth() > 0) {
-      (*npc)->updateObject(/*deltaTime*/);
+      (*npc)->updateObject(deltaTime);
     }
   }
 
   for (auto player = Players.rbegin(); player != Players.rend(); player++) {
     if ((*player)->getHealth() > 0) {
-      (*player)->updateObject(/*deltaTime*/);
+      (*player)->updateObject(deltaTime);
     }
   }
 
   for (auto object = InteractiveObjects.rbegin(); object != InteractiveObjects.rend(); object++) {
     if ((*object)->getHealth() > 0) {
-      (*object)->updateObject(/*deltaTime*/);
+      (*object)->updateObject(deltaTime);
     }
   }
 
   for (auto bullet = Bullets.rbegin(); bullet != Bullets.rend(); bullet++) {
     if ((*bullet)->getHealth() > 0) {
-      (*bullet)->updateObject(/*deltaTime*/);
+      (*bullet)->updateObject(deltaTime);
     }
   }
 
