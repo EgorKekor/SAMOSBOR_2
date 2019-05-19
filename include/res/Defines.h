@@ -15,14 +15,26 @@ namespace ClientMessages {
     enum flag {};
 }
 
+namespace Textures {
+    namespace Player {
+        enum Action {WALK, SHOOT, FIGHT, DEAD};
+    }
+
+    namespace Npc {
+
+    }
+
+    enum Dirrection {UP, RIGHT, DOWN, LEFT};
+}
+
 
 namespace Entityes {
     enum type {PLAYER, BULLET, NPC, INTERACTIVE};
     namespace Names{
-    enum players {USUAL};
-    enum bullets {HAND, AUTOMAT, PISTOL};
-    enum Npc {CENTAUR};
-    enum Interactive {DOOR};
+        enum players {USUAL};
+        enum bullets {HAND, AUTOMAT, PISTOL};
+        enum Npc {CENTAUR};
+        enum Interactive {DOOR};
     }
 }
 
