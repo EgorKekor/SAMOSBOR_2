@@ -3,8 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "TextureHolder.h"
+#include "cli/TextureHolder.h"
 #include "client.h"
+#include "cli/MessageCreator.h"
 
 class GameContext {
  public:
@@ -14,6 +15,8 @@ class GameContext {
   sf::View view;
   sf::Vector2u windowSize;
   client Client;
+  MessageCreator messageCreator;
+
 
   //TextureHolder allUnitsTextures;
   // MusicPlayer music;

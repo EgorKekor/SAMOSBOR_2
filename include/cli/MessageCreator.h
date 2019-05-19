@@ -10,8 +10,8 @@
 class MessageCreator {
  public:
   MessageCreator(std::vector<message>& Outp);
-  void SendShoting(size_t object_id, size_t object_type, size_t weapon_type, sf::Vector2f position) const;
-  void SendMoving(size_t object_id, size_t object_type, size_t direction) const;
+  void SendMouseCommand(sf::Vector2f mouse_position) const;
+  void SendKeyCommand(size_t key) const;
 
  private:
   std::vector<message>& MessOutput;

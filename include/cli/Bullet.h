@@ -9,6 +9,7 @@ class Bullet: public GameObject {
  public:
   using BULLET_PTR = std::unique_ptr<Bullet>;
 
+  sf::FloatRect getRect() override;
   void drawObject() override;
   void updateObject() override;
 };
