@@ -15,6 +15,9 @@ class GameContext {
   sf::View view;
   sf::Vector2u windowSize;
   client Client;
+
+  std::vector<message> messOutput;
+  std::vector<message> messInput;
   MessageCreator messageCreator;
 
 
