@@ -1,4 +1,4 @@
-#include "server.h"
+#include "srv/server.h"
 server::~server() {
     for(std::map<int, connection*>::iterator i = connects.begin(); i != connects.end(); i++) {
         if (i->second != nullptr) {

@@ -20,8 +20,8 @@ public:
     explicit State(StateManager &manager_, GameContext &context_);
     virtual ~State() = default;
 
-    virtual bool handleStateInput() = 0;
-    virtual bool updateState(sf::Time deltaTime) = 0;
+    virtual void handleStateInput() = 0;
+    virtual void updateState(sf::Time deltaTime) = 0;
     //virtual bool drawState() = 0;
 protected:
     void push_game_state(STATE_PTR &&NewState) const;

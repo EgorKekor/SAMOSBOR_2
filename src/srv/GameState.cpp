@@ -12,10 +12,8 @@ GameState::GameState(StateManager &manager_, GameContext &context_) : State(mana
   std::cout << "Режим игры\n";
 }
 
-bool GameState::handleStateInput() {
-  return true;
+void GameState::handleStateInput() {
 }
 
-bool GameState::updateState(sf::Time /*deltaTime*/) {
-  return true;
+void GameState::updateState(sf::Time /*deltaTime*/) {
 }

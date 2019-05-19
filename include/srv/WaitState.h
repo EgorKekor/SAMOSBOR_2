@@ -16,8 +16,8 @@
 class WaitState : public State {
 public:
     explicit WaitState(StateManager &manager_, GameContext &context_);
-    bool handleStateInput() override;
-    bool updateState(sf::Time deltaTime) override;
+    void handleStateInput() override;
+    void updateState(sf::Time deltaTime) override;
     //bool draw_game() override;
 private:
     bool SendStartMessage(server &srv) const;

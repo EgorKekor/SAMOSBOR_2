@@ -13,8 +13,8 @@
 class GameState : public State {
 public:
     explicit GameState(StateManager &manager_, GameContext &context_);
-    bool handleStateInput() override;
-    bool updateState(sf::Time deltaTime) override;
+    void handleStateInput() override;
+    void updateState(sf::Time deltaTime) override;
     //bool draw_game() override;
 private:
 };

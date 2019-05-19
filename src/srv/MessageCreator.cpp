@@ -8,7 +8,7 @@ MessageCreator::MessageCreator(std::vector<message> &Outp) :
 MessOutput(Outp) {}
 
 
-bool MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const {
+void MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const {
     message mess;
     mess.set_id(0);
     mess.set_flag(ServerMessages::flag::MAKE_BULLET);
@@ -19,11 +19,10 @@ bool MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f
     bull->set_target_y(target.y);
     bull->set_weapon_id(weapon_id);
     MessOutput.push_back(mess);
-    return true;
 }
 
 
-bool MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id) const {
+void MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id) const {
     message mess;
     mess.set_id(0);
     mess.set_flag(ServerMessages::flag::MAKE_DAMAGE);
@@ -35,7 +34,7 @@ bool MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id
 }
 
 
-bool MessageCreator::SendEntity(size_t id, size_t type, size_t name, sf::Vector2f position, int creator_id) const {
+void MessageCreator::SendEntity(size_t id, size_t type, size_t name, sf::Vector2f position, int creator_id) const {
     message mess;
     mess.set_id(0);
     mess.set_flag(ServerMessages::flag::MAKE_ENTITY);
@@ -50,7 +49,7 @@ bool MessageCreator::SendEntity(size_t id, size_t type, size_t name, sf::Vector2
 }
 
 
-bool MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos) const {
+void MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos) const {
     message mess;
     mess.set_id(0);
     mess.set_flag(ServerMessages::flag::MAKE_MOVE);
@@ -62,7 +61,7 @@ bool MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector
     MessOutput.push_back(mess);
 }
 
-bool MessageCreator::SendStart() const {
+void MessageCreator::SendStart() const {
     message mess;
     mess.set_id(ServerMessages::id::MULTICAST);
     mess.set_flag(ServerMessages::flag::START_GAME);

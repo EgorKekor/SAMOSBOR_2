@@ -1,7 +1,7 @@
-#include "StateManager.h"
-#include "State.h"
-#include "WaitState.h"
-#include "GameState.h"
+#include "srv/StateManager.h"
+#include "srv/State.h"
+#include "srv/WaitState.h"
+#include "srv/GameState.h"
 
 using STATE_PTR = std::unique_ptr<State>;
 
@@ -30,14 +30,14 @@ STATE_PTR& StateManager::get_state() {
 
 
 
-bool StateManager::handleInput() {
+void StateManager::handleInput() {
     /*TO_DO*/
     get_state()->handleStateInput();
     StatesBuf.clear();
 }
 
 
-bool StateManager::update(sf::Time deltaTime) {
+void StateManager::update(sf::Time deltaTime) {
     get_state()->updateState(deltaTime);
 }
 

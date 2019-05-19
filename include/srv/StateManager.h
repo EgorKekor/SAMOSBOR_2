@@ -14,8 +14,8 @@ class StateManager {
 public:
     explicit StateManager(sf::RenderWindow &Window_, server &server_);
 
-    bool handleInput();
-    bool update(sf::Time deltaTime);
+    void handleInput();
+    void update(sf::Time deltaTime);
     //bool draw();
 
     void push_state(STATE_PTR &&new_state);
