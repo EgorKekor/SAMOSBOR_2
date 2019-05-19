@@ -11,7 +11,7 @@ message main {
     repeated take_damage damage = 7;
     // clients commands:
     repeated client_mouse mouse = 8;
-    repeated int32 key = 9;
+    repeated client_key key = 9;
 }
 
 message make_move {
@@ -49,5 +49,11 @@ message make_bullet {
 message client_mouse {
     float mouse_x = 1;
     float mouse_y = 2;
+    bool is_pressed = 3;
+}
+
+message client_key {
+    int32 key = 1;
+    bool is_pressed = 2;
 }
 
