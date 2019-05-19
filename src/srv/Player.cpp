@@ -3,7 +3,16 @@
 Player::Player(GameContext &cnt, sf::Vector2f position, size_t id_) :
 GameObject(cnt, position, id_), body(context.GetTextureManager().GetPlayerSize())
 //mSprite(context.GetTextureManager().GetPlayerSprites())
-{}
+{
+    health = 1000;
+    speed = 100;
+    buttonState = false;
+    mouseState = false;
+    mIsMovingUp = false;
+    mIsMovingDown = false;
+    mIsMovingLeft = false;
+    mIsMovingRight = false;
+}
 
 
 void Player::PressKey(size_t key, bool isPressed) {
