@@ -19,14 +19,12 @@ void WaitState::handleStateInput() {
 
 
 void WaitState::updateState(sf::Time /*deltaTime*/) {
-    if (context.GetServer().GetConnectNumb() == 2) {    // TO_DO(Stepan): Добавить метод, дающий число подключений
+    if (context.GetServer().GetConnectNumb() == 1) {    // TO_DO(Stepan): Добавить метод, дающий число подключений
         SendStartMessage(context.GetServer());
         STATE_PTR gameState = std::make_unique<GameState>(manager, context);
         push_game_state(move(gameState));
     }
-    if (context.GetServer().GetConnectNumb() == 1) {
-        std::cout << "1 есть'\n";
-    }
+    std::cout << context.GetServer().GetConnectNumb() << "\n";
 }
 
 
