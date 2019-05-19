@@ -44,28 +44,47 @@ void GameState::handle_input(sf::Mouse::Button mouse, bool isPressed) {
 void GameState::handle_input(char /*symbol*/) {
 
 }
-void GameState::update(sf::Time /*deltaTime*/) {
+void GameState::update(sf::Time deltaTime) {
+  std::vector<message> input = context.Client.GetInput();
+  for (auto msg = input.begin(); msg != input.end(); ++msg) {
+    if ((*msg).move_size() != 0) {
+      for (auto player = Players.begin(); player != Players.end(); ++player) {
+        if ((*player)->getId() == (size_t)(*msg).move(0).object_id()) {
+          (*player)->SetX((*msg).move(0).new_x());
+          (*player)->SetY((*msg).move(0).new_y());
+          break;
+        }
+      }
+    } else if ((*msg).entity_size() != 0) {
+
+    } else if ((*msg).bullet_size() != 0) {
+
+    } else if ((*msg).damage_size() != 0) {
+
+    }
+  }
+
   for (auto npc = NPCs.rbegin(); npc != NPCs.rend(); npc++) {
     if ((*npc)->getHealth() > 0) {
-      (*npc)->updateObject(/*deltaTime*/);
+      (*npc)->updateObject(deltaTime);
     }
   }
 
   for (auto player = Players.rbegin(); player != Players.rend(); player++) {
     if ((*player)->getHealth() > 0) {
-      (*player)->updateObject(/*deltaTime*/);
+      (*player)->updateObject(deltaTime);
     }
   }
 
   for (auto object = InteractiveObjects.rbegin(); object != InteractiveObjects.rend(); object++) {
     if ((*object)->getHealth() > 0) {
-      (*object)->updateObject(/*deltaTime*/);
+      (*object)->updateObject(deltaTime);
     }
   }
 
   for (auto bullet = Bullets.rbegin(); bullet != Bullets.rend(); bullet++) {
     if ((*bullet)->getHealth() > 0) {
-      (*bullet)->updateObject(/*deltaTime*/);
+      (*bullet)->updateObject(deltaTime);
     }
   }
 

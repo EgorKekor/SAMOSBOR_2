@@ -6,6 +6,8 @@
 
 class GameObject {
  public:
+    void SetX(float x_) {x = x_;};
+    void SetY(float y_) {y = y_;};
   GameObject(GameContext &cnt, sf::Vector2f position, size_t id_);
 
   sf::Vector2f getPossition();
@@ -15,7 +17,7 @@ class GameObject {
 
   virtual sf::FloatRect getRect() = 0;
   virtual void drawObject() = 0;
-  virtual void updateObject() = 0;
+  virtual void updateObject(sf::Time deltaTime) = 0;
 
  protected:
   GameContext &context;

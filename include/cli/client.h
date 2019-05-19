@@ -28,6 +28,7 @@ class client {
     ~client();
     void push(message);
     const message& front();
+    std::vector<message> GetInput();
     void pop();
     bool empty();
     int connect_to_address(const std::string&);

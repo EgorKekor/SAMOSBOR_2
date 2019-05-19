@@ -13,7 +13,7 @@ void Player::drawObject() {
   context.mWindow->draw(circle);
 }
 
-void Player::updateObject() {
+void Player::updateObject(sf::Time deltaTime) {
 
 }
 
