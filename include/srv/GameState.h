@@ -5,7 +5,7 @@
 #ifndef SERVER_GAMESTATE_H
 #define SERVER_GAMESTATE_H
 
-#include "State.h"
+#include "srv/State.h"
 #include "srv/WaitState.h"
 #include "srv/Player.h"
 #include "res/message.h"

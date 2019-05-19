@@ -1,7 +1,7 @@
 #ifndef SERVER_PLAYER_H
 #define SERVER_PLAYER_H
 
-#include "GameObject.h"
+#include "srv/GameObject.h"
 
 class Player : public GameObject {
 public:
