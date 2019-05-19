@@ -29,6 +29,9 @@ namespace Textures {
     enum Dirrection {UP, RIGHT, DOWN, LEFT};
 }
 
+namespace Weapon {
+    enum Gun {HAND, PISTOL, AUTOMAT};
+}
 
 namespace Entityes {
     enum type {PLAYER, BULLET, NPC, INTERACTIVE};

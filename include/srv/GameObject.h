@@ -15,7 +15,7 @@ public:
 
     virtual sf::FloatRect getRect() = 0;
     virtual void drawObject() = 0;
-    virtual void updateObject() = 0;
+    virtual void updateObject(sf::Time deltaTime) = 0;
 protected:
     GameContext &context;
 
