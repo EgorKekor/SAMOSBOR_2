@@ -17,6 +17,7 @@ GameState::GameState(StateManager *stack, GameContext &context_) : State(stack, 
     for (auto & msg : input) {
       if (msg.flag() == ServerMessages::MAKE_ENTITY) {
         PLAYER_PTR play = std::make_unique<Player>(context, sf::Vector2f(msg.entity(0).x(), msg.entity(0).y()), msg.entity(0).id());
+        Players.push_back(move(play));
         break;
       }
     }
