@@ -13,6 +13,8 @@ namespace ServerMessages {
 
 namespace ClientMessages {
     enum flag {KEY_PRESSED, MOUSE_PRESSED};
+    enum key {NUM1=1, NUM2, NUM3, NUM4, W, S, A, D};
+
 }
 
 namespace Textures {

@@ -12,6 +12,11 @@ class Player: public GameObject {
   sf::FloatRect getRect() override;
   void drawObject() override;
   void updateObject() override;
+  void handle_actor_input(sf::Mouse::Button mouse, bool isPressed);
+  void handle_actor_input(sf::Keyboard::Key key, bool isPressed);
+
+
+  bool mainHero = false;
 };
 
 #endif //SERVER_PLAYER_H

@@ -23,7 +23,7 @@ class GameState : public State  {
   std::vector<NPC::NPC_PTR> NPCs;
   std::vector<Player::PLAYER_PTR> Players;
   std::vector<Interactive::INTERACTIVE_PTR> InteractiveObjects;
-  std::vector<Bullet::BULLET_PTR> Items;
+  std::vector<Bullet::BULLET_PTR> Bullets;
 
 };
 

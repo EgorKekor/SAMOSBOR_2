@@ -9,12 +9,12 @@
 
 class MessageCreator {
  public:
-  MessageCreator(std::vector<message>& Outp);
+  explicit MessageCreator(std::vector<message>& Outp);
   void SendMouseCommand(sf::Vector2f mouse_position) const;
   void SendKeyCommand(size_t key) const;
 
  private:
-  std::vector<message>& MessOutput;
+  std::vector<message>& messOutput;
 };
 
 #endif //SERVER_MESSAGECREATOR_H
