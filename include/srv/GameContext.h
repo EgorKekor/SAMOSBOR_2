@@ -15,6 +15,7 @@ public:
     GameContext(sf::RenderWindow &Window_, server &server_);
     const MessageCreator &GetMsgCreator() const { return MsgCreator; };
     const sf::RenderWindow &GetWindow() const { return Window; };
+    const TextureManager& GetTextureManager() const { return textureManager;};
 
     std::vector<message> &GetMessInput() { return MessInput; };
     std::vector<message> &GetMessOutput() { return MessOutput; };
