@@ -6,62 +6,75 @@ mSprite(context.GetTextureManager().GetPlayerSprites()) {
 }
 
 
-sf::FloatRect Player::getRect() {
+void Player::PressKey(size_t key, bool isPressed) {
+    buttonState = isPressed;
+
+    if (key == ClientMessages::key::W) {
+        mIsMovingUp = isPressed;
+    }
+    else if (key == ClientMessages::key::S) {
+        mIsMovingDown = isPressed;
+    }
+    else if (key == ClientMessages::key::A) {
+        mIsMovingLeft = isPressed;
+    }
+    else if (key == ClientMessages::key::D) {
+        mIsMovingRight = isPressed;
+    } else if (key == ClientMessages::key::NUM1) {
+        current_weapon = Weapon::Gun::HAND;
+    } else if (key == ClientMessages::key::NUM2) {
+        current_weapon = Weapon::Gun::PISTOL;
+    } else if (key == ClientMessages::key::NUM3) {
+        current_weapon = Weapon::Gun::AUTOMAT;
+    }
+}
+
+
+void Player::TakeShot(float x, float y, bool isPressed) {
+    mouseState = isPressed;
+    if (mouseState) {
+        mpuseTouch.x = x;
+        mpuseTouch.y = y;
+    } else {
+        mpuseUnTouch.x = x;
+        mpuseUnTouch.y = y;
+    }
 
 }
+
 
 void Player::drawObject() {
 
 }
 
-void Player::updateObject() {
+void Player::updateObject(sf::Time deltaTime) {
+    if (mIsMovingUp) {
+        dx = 0;
+        dy = -(speed);
+    }
+
+    if (mIsMovingDown) {
+        dx = 0;
+        dy = speed;
+    }
+
+    if (mIsMovingLeft) {
+        dx = -(speed);
+        dy = 0;
+    }
+
+    if (mIsMovingRight) {
+        dx = speed;
+        dy = 0;
+    }
+
+    x = x + (dx * deltaTime.asSeconds());
+    y = y + (dy * deltaTime.asSeconds());
 
 }
 
-void Player::TakeShot(float x, float y) {
-    return;
-}
 
-void Player::PressKey(size_t key, bool isPressed) {
-    buttonState = isPressed;
 
-    if (key == ) {
-        actorParams_.Zpressed = true;
-    }
-    if (key == sf::Keyboard::F && !isPressed) {
-        actorParams_.Fpressed = true;
-    }
-    if (key == sf::Keyboard::X && !isPressed) {
-        actorParams_.Xpressed = true;
-    }
-    if (key == sf::Keyboard::C) {
-        actorParams_.Cpressed = true;
-    }
-
-    if (key == sf::Keyboard::W) {
-        actorParams_.mIsMovingUp = isPressed;
-        actorParams_.spriteUp = true;
-    }
-    else if (key == sf::Keyboard::S) {
-        actorParams_.mIsMovingDown = isPressed;
-        actorParams_.spriteDown = true;
-    }
-    else if (key == sf::Keyboard::A) {
-        actorParams_.mIsMovingLeft = isPressed;
-        actorParams_.spriteLeft = true;
-    }
-    else if (key == sf::Keyboard::D) {
-        actorParams_.mIsMovingRight = isPressed;
-        actorParams_.spriteRight = true;
-    } else if (key == sf::Keyboard::Num1) {
-        actorParams_.current_weapon = (int)Weapon::Gun::Hand;
-        actorParams_.spriteRight = true;
-    } else if (key == sf::Keyboard::Num2) {
-        actorParams_.current_weapon = (int)Weapon::Gun::Pistol;
-    } else if (key == sf::Keyboard::Num3) {
-        actorParams_.current_weapon = (int)Weapon::Gun::Automat;
-    } else if (key == sf::Keyboard::Num4) {
-        actorParams_.current_weapon = (int)Weapon::Gun::Usi;
-    }
-
+sf::FloatRect Player::getRect() {
+    return sf::FloatRect(x - body.width/2, y - body.height/2, body.width, body.height);
 }

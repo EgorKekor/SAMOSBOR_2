@@ -8,7 +8,6 @@ public:
     Player(GameContext &cnt, sf::Vector2f position, size_t id_);
 
     PlayerSize const &body;             //  Тело отрисовки
-    std::vector<std::vector<std::vector<sf::Sprite>>> const &mSprite;
 
 
     sf::Clock clock;
@@ -18,28 +17,33 @@ public:
     sf::Time fireReaction;
     sf::Time fireReactionTimer;
 
+    sf::Vector2f mpuseTouch;
+    sf::Vector2f mpuseUnTouch;
     size_t current_weapon;
     size_t speed;
     float dx;
     float dy;
 
     bool buttonState;
+    bool mouseState;
     bool mIsMovingUp;
     bool mIsMovingDown;
     bool mIsMovingLeft;
     bool mIsMovingRight;
 
+    // =================    FOR CLIENT
+    /*std::vector<std::vector<std::vector<sf::Sprite>>> const &mSprite;
     bool spriteUp;
     bool spriteDown;
     bool spriteLeft;
-    bool spriteRight;
-
+    bool spriteRight;*/
+    // =================
 
 
     sf::FloatRect getRect() override;
     void drawObject() override;
-    void updateObject() override;
-    void TakeShot(float x, float y);
+    void updateObject(sf::Time deltaTime) override;
+    void TakeShot(float x, float y, bool isPressed);
     void PressKey(size_t key, bool isPressed);
 protected:
 
