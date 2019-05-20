@@ -8,7 +8,7 @@ MessageCreator::MessageCreator(std::vector<message> &Outp) :
 MessOutput(Outp) {}
 
 
-void MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const {
+void MessageCreator::SendBullet(int bullet_id, int parent_id, sf::Vector2f target, int weapon_id) const {
     message mess;
     mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_BULLET);
@@ -22,7 +22,7 @@ void MessageCreator::SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f
 }
 
 
-void MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id) const {
+void MessageCreator::SendDamage(int damage, int object_type, int object_id) const {
     message mess;
     mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_DAMAGE);
@@ -34,7 +34,7 @@ void MessageCreator::SendDamage(int damage, size_t object_type, size_t object_id
 }
 
 
-void MessageCreator::SendEntity(size_t entity_id, size_t type, size_t name, sf::Vector2f position, int creator_id) const {
+void MessageCreator::SendEntity(int entity_id, int type, int name, sf::Vector2f position, int creator_id) const {
     message mess;
     mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_ENTITY);
@@ -43,13 +43,15 @@ void MessageCreator::SendEntity(size_t entity_id, size_t type, size_t name, sf::
     ent->set_type(type);
     ent->set_name(name);
     ent->set_creator_id(creator_id);
-    ent->set_x(position.x);
-    ent->set_y(position.y);
+    int x_ = (int)position.x;
+    int y_ = (int)position.y;
+    ent->set_x(x_);
+    ent->set_y(y_);
     MessOutput.push_back(mess);
 }
 
 
-void MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos) const {
+void MessageCreator::SendMoving(int object_id, int object_type, sf::Vector2f new_pos) const {
     message mess;
     mess.set_id(MULTICAST_ID);
     mess.set_flag(ServerMessages::flag::MAKE_MOVE);
@@ -61,9 +63,11 @@ void MessageCreator::SendMoving(size_t object_id, size_t object_type, sf::Vector
     MessOutput.push_back(mess);
 }
 
-void MessageCreator::SendStart() const {
+void MessageCreator::SendStart(int play_amount) const {
     message mess;
     mess.set_id(ServerMessages::id::MULTICAST);
     mess.set_flag(ServerMessages::flag::START_GAME);
+    msg::start_game *strt = mess.add_start();
+    strt->set_players_amount(play_amount);
     MessOutput.push_back(mess);
 }

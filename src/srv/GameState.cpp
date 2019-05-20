@@ -7,10 +7,15 @@
 using STATE_PTR = std::unique_ptr<State>;
 
 GameState::GameState(StateManager &manager_, GameContext &context_) : State(manager_, context_) {
-    Players.insert(std::make_pair(1, std::make_unique<Player>(context, sf::Vector2f(100, 100), 1)));
-    Players.insert(std::make_pair(2, std::make_unique<Player>(context, sf::Vector2f(200, 200), 2)));
-    context.GetMsgCreator().SendEntity(1, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(100, 100));
-    context.GetMsgCreator().SendEntity(2, Entityes::type::PLAYER, Entityes::Names::players::USUAL, sf::Vector2f(200, 200));
+    sf::Vector2f start(100, 100);
+    for (int num = 0; num < MAX_PLAYERS; ++num) {
+        Players.insert(std::make_pair(num + 1, std::make_unique<Player>(context, start, num + 1)));
+        context.GetMsgCreator().SendEntity(num + 1, Entityes::type::PLAYER, Entityes::Names::players::USUAL, start);
+        start.x += 100;
+        start.y += 100;
+    }
+
+    PushMessages();
     std::cout << "Режим игры\n";
 }
 
@@ -34,4 +39,15 @@ void GameState::updateState(sf::Time deltaTime) {
     for (auto player = Players.begin(); player != Players.end(); ++player) {
         player->second->updateObject(deltaTime);
     }
+    PushMessages();
+}
+
+
+
+void GameState::PushMessages() {
+    std::vector<message> &out = context.GetMessOutput();
+    for (auto &msg : out) {
+        context.GetServer().push(msg);
+    }
+    out.clear();
 }

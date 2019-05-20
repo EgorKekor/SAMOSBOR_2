@@ -53,6 +53,7 @@ void * sending(void * arg) {
     auto * con = static_cast<connection *>(arg);
     signal(SIGPIPE, pipe);
     while(true) {
+        std::cout << "s\n";
         int error = 0;
         socklen_t len = sizeof (error);
         int retval = getsockopt(con->sock_fd, SOL_SOCKET, SO_ERROR, &error, &len);

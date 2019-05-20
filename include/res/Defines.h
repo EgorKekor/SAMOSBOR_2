@@ -5,6 +5,7 @@
 #ifndef SERVER_NAMES_H
 #define SERVER_NAMES_H
 
+#define MAX_PLAYERS     1
 
 namespace ServerMessages {
     enum flag {MAKE_ENTITY, MAKE_MOVE, MAKE_DAMAGE, MAKE_BULLET, START_GAME};
