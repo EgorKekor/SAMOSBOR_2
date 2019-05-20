@@ -30,9 +30,9 @@ void * listening(void * arg) {
             con->leave();
             return nullptr;
         }
-        std::cout << "msg is listen!\n";
         std::string in_message(buff);
         msg.ParseFromString(in_message);
+        std::cout << msg.flag() << " - flag, msg is listen!\n";
         msg.set_id(con->get_id());
         con->in.push(msg);        
         if (!con->actual) {
