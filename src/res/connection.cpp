@@ -88,7 +88,7 @@ connection::connection(int sock, int in_id) {
     sock_fd = sock;
     id = in_id;
     struct timeval tv{};
-    tv.tv_sec = 300;
+    tv.tv_sec = 3000;
     tv.tv_usec = 0;
     sem_init(&semaphore, 0, 1);
     setsockopt(sock_fd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
