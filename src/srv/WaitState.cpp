@@ -31,9 +31,14 @@ void WaitState::updateState(sf::Time /*deltaTime*/) {
 bool WaitState::SendStartMessage(server &srv) const {
     std::vector<message> &out = context.GetMessOutput();
 
-    context.GetMsgCreator().SendStart(MAX_PLAYERS);
-    srv.push(out.back());
-    out.pop_back();
+    for (int i = ServerMessages::id::FIRST; i <= ServerMessages::id::LAST; ++i) {
+        context.GetMsgCreator().SendStart(i, MAX_PLAYERS);
+    }
+
+    for (auto &msg : out) {
+        srv.push(msg);
+    }
+    out.clear();
     return true;
 }
 

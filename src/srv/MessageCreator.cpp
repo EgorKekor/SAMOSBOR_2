@@ -61,9 +61,9 @@ void MessageCreator::SendMoving(int object_id, int object_type, sf::Vector2f new
     MessOutput.push_back(mess);
 }
 
-void MessageCreator::SendStart(int play_amount) const {
+void MessageCreator::SendStart(int client_id, int play_amount) const {
     message mess;
-    mess.set_id(ServerMessages::id::MULTICAST);
+    mess.set_id(client_id);
     mess.set_flag(ServerMessages::flag::START_GAME);
     msg::start_game *strt = mess.add_start();
     strt->set_players_amount(play_amount);

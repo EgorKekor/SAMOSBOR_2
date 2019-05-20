@@ -17,7 +17,7 @@ public:
     void SendDamage(int damage, int object_type, int object_id) const;
     void SendEntity(int object_id, int type, int name, sf::Vector2f position, int creator_id = -1) const;
     void SendMoving(int object_id, int object_type, sf::Vector2f new_pos) const;
-    void SendStart(int play_amount) const;
+    void SendStart(int client_id, int play_amount) const;
 
 private:
     std::vector<message>& MessOutput;

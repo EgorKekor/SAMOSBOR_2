@@ -19,7 +19,7 @@
 #include "res/secure_queue.h"
 #include "res/connection.h"
 
-#define PORT	1103
+#define PORT	1104
 #define MAX_CLIENTS_QUEUE 5
 #define CONNECT -1
 #define MIN_ID 1 // must be bigger then MULTICAST_ID

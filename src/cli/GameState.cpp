@@ -9,20 +9,24 @@ GameState::GameState(StateManager *stack, GameContext &context_, int playersAmou
   playersAmount = playersAmount_;
   lvl.LoadFromFile("../Graphics/map/map.tmx");
   MapObjects = lvl.GetAllObjects();
-  while (true) {
-    if (context.Client.empty()) {
-      continue;
-    }
-    std::vector<message> input = context.Client.GetInput();
-
-    for (auto & msg : input) {
-      if (msg.flag() == ServerMessages::MAKE_ENTITY) {
-        PLAYER_PTR play = std::make_unique<Player>(context, msg.entity(0).x(), msg.entity(0).y(), msg.entity(0).id());
-        Players.push_back(move(play));
-        break;
+  int num = playersAmount;
+  while (num != 0) {
+    while (true) {
+      if (context.Client.empty()) {
+        continue;
       }
+      std::vector<message> input = context.Client.GetInput();
+
+      for (auto &msg : input) {
+        if (msg.flag() == ServerMessages::MAKE_ENTITY) {
+          PLAYER_PTR play = std::make_unique<Player>(context, msg.entity(0).x(), msg.entity(0).y(), msg.entity(0).id());
+          Players.push_back(move(play));
+          num--;
+          break;
+        }
+      }
+      break;
     }
-    break;
   }
 }
 void GameState::handle_input(sf::Keyboard::Key key, bool isPressed) {
