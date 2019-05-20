@@ -9,7 +9,9 @@ Player::Player(GameContext &context_, int x_, int y_, size_t id_) :
 }
 
 void Player::drawObject() {
-  setPlayerView(x, y);
+  if (mainHero) {
+    setPlayerView(x, y);
+  }
   circle.setPosition({ (float)x, (float)y });
   context.mWindow->draw(circle);
 }

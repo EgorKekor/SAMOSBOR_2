@@ -9,7 +9,7 @@
 
 class GameState : public State  {
  public:
-  GameState(StateManager *stack, GameContext &context_, int playersAmount_);
+  GameState(StateManager *stack, GameContext &context_, int playersAmount_, int myId_);
   void handle_input(sf::Keyboard::Key key, bool isPressed) override;
   void handle_input(sf::Mouse::Button mouse, bool isPressed) override;
   void handle_input(char symbol) override;
@@ -27,6 +27,7 @@ class GameState : public State  {
   std::vector<Bullet::BULLET_PTR> Bullets;
 
   int playersAmount = 0;
+  int myId;
 };
 
 #endif //SERVER_GAMESTATE_H

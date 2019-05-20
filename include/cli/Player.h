@@ -12,6 +12,7 @@ class Player: public GameObject {
 
 
   sf::FloatRect getRect() override;
+  void DoMain() {mainHero = true;};
   void drawObject() override;
   void updateObject(sf::Time deltaTime) override;
   void handle_actor_input(sf::Mouse::Button mouse, bool isPressed);
