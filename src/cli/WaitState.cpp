@@ -51,7 +51,7 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
           context.Client.pop();
           if (msg.flag() == ServerMessages::START_GAME) {
             playersAmount = msg.start(0).players_amount();
-            int clientId = msg.id();
+            int clientId = msg.start(0).player_id();
             STATE_PTR new_state = make_unique<GameState>(stack, context, playersAmount, clientId);
             push_state(move(new_state));
             break;
