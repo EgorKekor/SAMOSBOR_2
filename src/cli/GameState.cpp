@@ -30,11 +30,28 @@ void GameState::handle_input(sf::Keyboard::Key key, bool isPressed) {
     STATE_PTR new_state = make_unique<MenuState>(stack, context);
     push_state(move(new_state));
   }
-  for (auto player = Players.rbegin(); player != Players.rend(); player++) {
-    if ((*player)->mainHero) {
-      (*player)->handle_actor_input(key, isPressed);
+    if (key == sf::Keyboard::W) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::W, isPressed);
+    } else if (key == sf::Keyboard::S) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::S, isPressed);
+    } else if (key == sf::Keyboard::A) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::A, isPressed);
+    } else if (key == sf::Keyboard::D) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::D, isPressed);
+    } else if (key == sf::Keyboard::Num1) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::NUM1, isPressed);
+    } else if (key == sf::Keyboard::Num2) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::NUM2, isPressed);
+    } else if (key == sf::Keyboard::Num3) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::NUM3, isPressed);
+    } else if (key == sf::Keyboard::Num4) {
+      context.messageCreator.SendKeyCommand(ClientMessages::key::NUM4, isPressed);
     }
-  }
+//  for (auto player = Players.rbegin(); player != Players.rend(); player++) {
+//    if ((*player)->mainHero) {
+//      (*player)->handle_actor_input(key, isPressed);
+//    }
+//  }
 }
 void GameState::handle_input(sf::Mouse::Button mouse, bool isPressed) {
   for (auto player = Players.rbegin(); player != Players.rend(); player++) {

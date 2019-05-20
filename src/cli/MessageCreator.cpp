@@ -10,8 +10,8 @@ void MessageCreator::SendMouseCommand(sf::Vector2f mouse_position, bool isPresse
   message mess;
   mess.set_flag(ClientMessages::flag::MOUSE_PRESSED);
   msg::client_mouse *mouse = mess.add_mouse();
-  mouse->set_mouse_x(mouse_position.x);
-  mouse->set_mouse_y(mouse_position.y);
+  mouse->set_mouse_x((int)mouse_position.x);
+  mouse->set_mouse_y((int)mouse_position.y);
   mouse->set_is_pressed(isPressed);
   messOutput.push_back(mess);
 }

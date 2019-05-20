@@ -5,6 +5,7 @@ Player::Player(GameContext &context_, int x_, int y_, size_t id_) :
   type = Entityes::type::PLAYER;
   health = 1000;
   circle.setFillColor(sf::Color{ 0x006495FF });
+  mainHero = true;
 }
 
 void Player::drawObject() {
@@ -32,14 +33,18 @@ void Player::handle_actor_input(sf::Keyboard::Key key, bool isPressed) {
   if (mainHero) {
     if (key == sf::Keyboard::W) {
       isMovingUp = isPressed;
+      std::cout << "W\n";
       context.messageCreator.SendKeyCommand(ClientMessages::key::W, isPressed);
     } else if (key == sf::Keyboard::S) {
       isMovingLeft = isPressed;
+      std::cout << "S\n";
       context.messageCreator.SendKeyCommand(ClientMessages::key::S, isPressed);
     } else if (key == sf::Keyboard::A) {
       isMovingDown = isPressed;
+      std::cout << "A\n";
       context.messageCreator.SendKeyCommand(ClientMessages::key::A, isPressed);
     } else if (key == sf::Keyboard::D) {
+      std::cout << "D\n";
       isMovingRight = isPressed;
       context.messageCreator.SendKeyCommand(ClientMessages::key::D, isPressed);
     } else if (key == sf::Keyboard::Num1) {
