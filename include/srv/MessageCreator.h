@@ -13,11 +13,11 @@
 class MessageCreator{
 public:
     MessageCreator(std::vector<message>& Outp);
-    void SendBullet(size_t bullet_id, size_t parent_id, sf::Vector2f target, size_t weapon_id) const;
-    void SendDamage(int damage, size_t object_type, size_t object_id) const;
-    void SendEntity(size_t object_id, size_t type, size_t name, sf::Vector2f position, int creator_id = -1) const;
-    void SendMoving(size_t object_id, size_t object_type, sf::Vector2f new_pos) const;
-    void SendStart() const;
+    void SendBullet(int bullet_id, int parent_id, sf::Vector2f target, int weapon_id) const;
+    void SendDamage(int damage, int object_type, int object_id) const;
+    void SendEntity(int object_id, int type, int name, sf::Vector2f position, int creator_id = -1) const;
+    void SendMoving(int object_id, int object_type, sf::Vector2f new_pos) const;
+    void SendStart(int play_amount) const;
 
 private:
     std::vector<message>& MessOutput;

@@ -12,6 +12,7 @@ message main {
     // clients commands:
     repeated client_mouse mouse = 7;
     repeated client_key key = 8;
+    repeated start_game start = 9;
 }
 
 message make_move {

@@ -20,6 +20,7 @@ public:
     void updateState(sf::Time deltaTime) override;
     //bool draw_game() override;
 private:
+    void PushMessages();
     std::map<size_t, PLAYER_PTR> Players;
 };
 
