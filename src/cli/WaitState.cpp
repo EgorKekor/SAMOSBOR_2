@@ -39,6 +39,7 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
     push_state(move(new_state));
   } else if (key == sf::Keyboard::Return) {
     if (is_ipv4_address()) {
+      int playersAmount = 0;
       ipError = false;
       connectionEstablished = context.Client.connect_to_address(address) == 0;
       if (connectionEstablished) {
@@ -51,8 +52,10 @@ void WaitState::handle_input(sf::Keyboard::Key key, bool isPressed) {
           if (msg.flag() == ServerMessages::START_GAME) {
             break;
           }
+
+         // playersAmount = msg.start(0).players_amount();
         }
-        STATE_PTR new_state = make_unique<GameState>(stack, context);
+        STATE_PTR new_state = make_unique<GameState>(stack, context, playersAmount);
         push_state(move(new_state));
       } else {
         ipError = true;

@@ -5,7 +5,8 @@ using std::make_unique;
 using STATE_PTR = std::unique_ptr<State>;
 using PLAYER_PTR = std::unique_ptr<Player>;
 
-GameState::GameState(StateManager *stack, GameContext &context_) : State(stack, context_) {
+GameState::GameState(StateManager *stack, GameContext &context_, int playersAmount_) : State(stack, context_) {
+  playersAmount = playersAmount_;
   lvl.LoadFromFile("../Graphics/map/map.tmx");
   MapObjects = lvl.GetAllObjects();
   while (true) {

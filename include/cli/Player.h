@@ -31,7 +31,7 @@ class Player: public GameObject {
   sf::Time fireReaction;
   sf::Time fireReactionTimer;
 
-  sf::CircleShape circle{ 100.f };
+  sf::CircleShape circle{ 80.f };
 
   //sf::Sprite playerSprite;
   sf::CircleShape shape;
