@@ -67,5 +67,6 @@ void MessageCreator::SendStart(int client_id, int play_amount) const {
     mess.set_flag(ServerMessages::flag::START_GAME);
     msg::start_game *strt = mess.add_start();
     strt->set_players_amount(play_amount);
+    strt->set_player_id(client_id);
     MessOutput.push_back(mess);
 }

@@ -60,4 +60,5 @@ message client_key {
 
 message start_game {
     int32 players_amount = 1;
+    int32 player_id = 2;
 }
