@@ -5,20 +5,20 @@ message main {
     int32 id = 1;
     int32 flag = 2;
     // servers commands:
-    repeated make_bullet bullet = 4;  
-    repeated make_move move = 5;
-    repeated make_entity entity = 6;
-    repeated take_damage damage = 7;
+    repeated make_bullet bullet = 3;
+    repeated make_move move = 4;
+    repeated make_entity entity = 5;
+    repeated take_damage damage = 6;
     // clients commands:
-    repeated client_mouse mouse = 8;
-    repeated client_key key = 9;
+    repeated client_mouse mouse = 7;
+    repeated client_key key = 8;
 }
 
 message make_move {
     int32 object_id = 1;
     int32 object_type = 2;
-    int32 new_x = 3;
-    int32 new_y = 4;
+    float new_x = 3;
+    float new_y = 4;
 }
 
 
@@ -27,8 +27,8 @@ message make_entity {
     int32 type = 2;
     int32 name = 3;
     int32 creator_id = 4;
-    int32 x = 5;
-    int32 y = 6;
+    float x = 5;
+    float y = 6;
 }
 
 
@@ -41,14 +41,14 @@ message take_damage {
 message make_bullet {
     int32 bullet_id = 1;
     int32 parent_id = 2;
-    int32 target_x = 3;
-    int32 target_y = 4;
+    float target_x = 3;
+    float target_y = 4;
     int32 weapon_id = 5;
 }
 
 message client_mouse {
-    int32 mouse_x = 1;
-    int32 mouse_y = 2;
+    float mouse_x = 1;
+    float mouse_y = 2;
     bool is_pressed = 3;
 }
 
@@ -57,3 +57,6 @@ message client_key {
     bool is_pressed = 2;
 }
 
+message start_game {
+    int32 players_amount = 1;
+}
