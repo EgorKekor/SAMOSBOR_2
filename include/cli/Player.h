@@ -8,7 +8,7 @@
 class Player: public GameObject {
  public:
   using PLAYER_PTR = std::unique_ptr<Player>;
-  Player(GameContext &context_, float x, float y, size_t id_);
+  Player(GameContext &context_, int x, int y, size_t id_);
 
 
   sf::FloatRect getRect() override;
@@ -16,7 +16,7 @@ class Player: public GameObject {
   void updateObject(sf::Time deltaTime) override;
   void handle_actor_input(sf::Mouse::Button mouse, bool isPressed);
   void handle_actor_input(sf::Keyboard::Key key, bool isPressed);
-  void setPlayerView(float x, float y);
+  void setPlayerView(int x, int y);
 
   bool isMovingUp;
   bool isMovingDown;

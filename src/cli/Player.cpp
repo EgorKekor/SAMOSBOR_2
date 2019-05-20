@@ -1,6 +1,6 @@
 #include "cli/Player.h"
 
-Player::Player(GameContext &context_,float x_, float y_, size_t id_) :
+Player::Player(GameContext &context_, int x_, int y_, size_t id_) :
     GameObject(context_, x_, y_, id_) {
   type = Entityes::type::PLAYER;
   health = 1000;
@@ -54,11 +54,18 @@ void Player::handle_actor_input(sf::Keyboard::Key key, bool isPressed) {
   }
 }
 
-void Player::setPlayerView(float x, float y) {
-  float tempX = x /*+ width/2*/;
-  float tempY = y /*+ height/2*/;
-  context.view.setCenter(tempX, tempY);
+void Player::setPlayerView(int x, int y) {
+  int tempX = x /*+ width/2*/;
+  int tempY = y /*+ height/2*/;
+  context.view.setCenter((float)tempX, (float)tempY);
   context.mWindow->setView(context.view);
 }
+
+//void Player::setPlayerView(float x, float y) {
+//  float tempX = x /*+ width/2*/;
+//  float tempY = y /*+ height/2*/;
+//  context.view.setCenter(tempX, tempY);
+//  context.mWindow->setView(context.view);
+//}
 
 
