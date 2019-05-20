@@ -17,6 +17,7 @@ class GameState : public State  {
   void draw() override;
 
  private:
+  void PushMessages();
   Level lvl;
   std::vector<Object> MapObjects;
 

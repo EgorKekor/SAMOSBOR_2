@@ -47,6 +47,8 @@ void GameState::handle_input(char /*symbol*/) {
 
 }
 void GameState::update(sf::Time deltaTime) {
+  PushMessages();
+
   std::vector<message> input = context.Client.GetInput();
   for (auto msg = input.begin(); msg != input.end(); ++msg) {
     if ((*msg).move_size() != 0) {
@@ -100,4 +102,15 @@ void GameState::draw() {
     }
   }
   context.mWindow->display();
+}
+
+
+
+
+void GameState::PushMessages() {
+  std::vector<message> &out = context.messOutput;
+  for (auto &msg : out) {
+    context.Client.push(msg);
+  }
+  out.clear();
 }
