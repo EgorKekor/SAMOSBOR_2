@@ -30,6 +30,7 @@ void * listening(void * arg) {
             con->leave();
             return nullptr;
         }
+        std::cerr << "bytes recived: " << lenght << ", sock fd: " << con->sock_fd <<std::endl;
         std::string in_message(buff);
         msg.ParseFromString(in_message);
         std::cout << msg.flag() << " - flag, msg is listen!\n";
@@ -69,6 +70,7 @@ void * sending(void * arg) {
             std::cout << con->out.front().flag() << " is out flag\n" << out_message.c_str() << std::endl;
             con->out.pop();
             int bytes_sending = send(con->sock_fd, out_message.c_str(), out_message.length(), 0);
+            std::cerr << "bytes sending: " << bytes_sending << ", sock fd: " << con->sock_fd << ", length: "<< out_message.length() <<std::endl;
             if (bytes_sending < 1) {
                 con->leave();
                 std::cout << "connection closed\n";
