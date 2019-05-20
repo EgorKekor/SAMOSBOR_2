@@ -8,7 +8,7 @@ class GameObject {
  public:
     void SetX(float x_) {x = x_;};
     void SetY(float y_) {y = y_;};
-  GameObject(GameContext &cnt, sf::Vector2i position, size_t id_);
+  GameObject(GameContext &cnt, float x, float y, size_t id_);
 
   sf::Vector2f getPossition();
   int getHealth();
@@ -24,8 +24,8 @@ class GameObject {
   size_t id;
   size_t type;
   int health;
-  int x;
-  int y;
+  float x;
+  float y;
 };
 
 #endif //SERVER_GAMEOBJECT_H

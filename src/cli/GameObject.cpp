@@ -1,6 +1,6 @@
 #include "cli/GameObject.h"
 
-GameObject::GameObject(GameContext &cnt, sf::Vector2i position, size_t id_) : context(cnt), id(id_), x(position.x), y(position.y){}
+GameObject::GameObject(GameContext &cnt, float x_, float y_, size_t id_) : context(cnt), id(id_), x(x_), y(y_){}
 
 sf::Vector2f GameObject::getPossition() {
   return sf::Vector2f(x, y);

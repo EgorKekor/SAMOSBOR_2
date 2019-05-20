@@ -84,7 +84,7 @@ void MenuState::handle_input(sf::Keyboard::Key /*key*/, bool /*isPressed*/) {
 }
 
 void MenuState::update(sf::Time /*deltaTime*/) {
-  //context.view.reset(sf::FloatRect(0, 0, 1280, 720));
+  context.view.reset(sf::FloatRect(0, 0, 1280, 720));
 }
 
 void MenuState::handle_input(sf::Mouse::Button mouse, bool isPressed) {

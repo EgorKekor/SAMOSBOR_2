@@ -1,7 +1,7 @@
 #include "cli/Player.h"
 
-Player::Player(GameContext &context_, sf::Vector2i position, size_t id_) :
-    GameObject(context_, position, id_) {
+Player::Player(GameContext &context_,float x_, float y_, size_t id_) :
+    GameObject(context_, x_, y_, id_) {
   type = Entityes::type::PLAYER;
   health = 1000;
   circle.setFillColor(sf::Color{ 0x006495FF });
