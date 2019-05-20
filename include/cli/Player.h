@@ -8,7 +8,7 @@
 class Player: public GameObject {
  public:
   using PLAYER_PTR = std::unique_ptr<Player>;
-  Player(GameContext &context_, sf::Vector2f position, size_t id_);
+  Player(GameContext &context_, sf::Vector2i position, size_t id_);
 
 
   sf::FloatRect getRect() override;

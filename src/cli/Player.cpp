@@ -1,6 +1,6 @@
 #include "cli/Player.h"
 
-Player::Player(GameContext &context_, sf::Vector2f position, size_t id_) :
+Player::Player(GameContext &context_, sf::Vector2i position, size_t id_) :
     GameObject(context_, position, id_) {
   type = Entityes::type::PLAYER;
   health = 1000;
@@ -9,11 +9,11 @@ Player::Player(GameContext &context_, sf::Vector2f position, size_t id_) :
 
 void Player::drawObject() {
   setPlayerView(x, y);
-  circle.setPosition({ x, y });
+  circle.setPosition({ (float)x, (float)y });
   context.mWindow->draw(circle);
 }
 
-void Player::updateObject(sf::Time deltaTime) {
+void Player::updateObject(sf::Time /*deltaTime*/) {
 
 }
 
