@@ -20,7 +20,7 @@
 #include "res/connection.h"
 
 
-#define PORT 1105
+#define PORT 1106
 
 class client {
  public:
