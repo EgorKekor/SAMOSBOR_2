@@ -18,8 +18,8 @@ message main {
 message make_move {
     int32 object_id = 1;
     int32 object_type = 2;
-    float new_x = 3;
-    float new_y = 4;
+    int32 new_x = 3;
+    int32 new_y = 4;
 }
 
 
@@ -28,8 +28,8 @@ message make_entity {
     int32 type = 2;
     int32 name = 3;
     int32 creator_id = 4;
-    float x = 5;
-    float y = 6;
+    int32 x = 5;
+    int32 y = 6;
 }
 
 
@@ -42,14 +42,14 @@ message take_damage {
 message make_bullet {
     int32 bullet_id = 1;
     int32 parent_id = 2;
-    float target_x = 3;
-    float target_y = 4;
+    int32 target_x = 3;
+    int32 target_y = 4;
     int32 weapon_id = 5;
 }
 
 message client_mouse {
-    float mouse_x = 1;
-    float mouse_y = 2;
+    int32 mouse_x = 1;
+    int32 mouse_y = 2;
     bool is_pressed = 3;
 }
 
